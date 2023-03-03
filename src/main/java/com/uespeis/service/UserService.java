@@ -8,5 +8,4 @@ public interface UserService {
 
     public boolean auth(String user,String pwd);
 
-    public void update(User u);
 }

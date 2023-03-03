@@ -10,6 +10,8 @@ public class Questions {
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+    private String title;
+    private String type;
     private String question;
     private String answer;
     private Integer score;

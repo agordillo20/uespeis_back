@@ -26,21 +26,14 @@ public class UserServiceImpl implements UserService {
         boolean resultG = false;
         var userGet = userRepository.getUserByName(user);
         if(userGet!=null){
-            var pass = userGet.getPassword();
-            var result=Codifiquer.compare(pass, pwd);
+            var result=Codifiquer.compare(userGet.getPassword(), pwd);
             if(result){
                 userGet.setLastAccess(LocalDateTime.now());
-                update(userGet);
+                saveUser(userGet);
             }
             resultG=result;
         }
         return resultG;
-        
-    }
-
-    @Override
-    public void update(User u) {
-       userRepository.save(u);
     }
 
 }
