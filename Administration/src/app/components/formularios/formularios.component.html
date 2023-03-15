@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="d-flex flex-column">
+        <h3 class="display-8 me-3">Formularios</h3>
+        <div class="d-flex">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Preguntas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let f of formus; index as i">
+                    <th scope="row">{{f.id}}</th>
+                    <td>{{f.type}}</td>
+                    <td>
+                        <button class="btn btn-outline-secondary" (click)="editForm(i)">Editar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+    </div>
+</div>
+
+<!--llevarlo a otro componente-->
+<!--Añadir balanceadores de tamaño a las columnas-->
+<div class="container d-flex flex-column gap-3 ab_nForm p-4 rounded text-bg-primary" *ngIf="editFormu">
+    <!--Añadir que es cada campo es un display superior-->
+    <i class="bi bi-x-circle newElement" (click)="closePopUp()"></i>
+    <div id="container_questions">
+        <div class="d-flex" *ngFor="let question of active_questions;index as j" [id]="'question_'+j">
+            <input type="text" name="title" placeholder="Titulo" class="form-control" [value]="question.title" [id]="'title_'+j">
+            <input type="text" name="type" placeholder="Tipo" class="form-control" [value]="question.type" [id]="'type_'+j"><!--Sustituir con select con lo que haya en la bbdd + opcion para agregar nuevo-->
+            <input type="text" name="question" placeholder="Pregunta" class="form-control flex-grow-1" [value]="question.question" [id]="'qt_'+j">
+            <i class="bi bi-x-circle newElement" (click)="deleteQuestion(question.id,j)"></i>
+        </div>
+    </div>
+    <i class="bi bi-plus-circle newElement" (click)="newQuestion()"></i>
+    <button type="submit" class="btn btn-secondary" (click)="updateQuestions()">Actualizar</button>
+</div>
+
+

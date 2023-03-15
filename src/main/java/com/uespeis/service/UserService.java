@@ -8,4 +8,8 @@ public interface UserService {
 
     public boolean auth(String user,String pwd);
 
+    public String getRol(String user);
+
+    public User findUserByEmail(String email);
+
 }

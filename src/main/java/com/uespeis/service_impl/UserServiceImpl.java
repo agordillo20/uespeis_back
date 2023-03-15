@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean auth(String user, String pwd) {
         boolean resultG = false;
-        var userGet = userRepository.getUserByName(user);
+        var userGet = userRepository.getUserByEmail(user);
         if(userGet!=null){
             var result=Codifiquer.compare(userGet.getPassword(), pwd);
             if(result){
@@ -35,5 +35,21 @@ public class UserServiceImpl implements UserService {
         }
         return resultG;
     }
+
+    @Override
+    public String getRol(String user) {
+        var userGet = userRepository.getUserByEmail(user);
+        if(userGet!=null){
+            return userGet.getRol();
+        }
+        return null;
+    }
+
+    @Override
+    public User findUserByEmail(String email){
+        return userRepository.getUserByEmail(email);
+    }
+
+    
 
 }

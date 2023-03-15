@@ -10,5 +10,5 @@ import com.uespeis.model.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("Select u from User u where u.email=?1")
-    User getUserByName(String user);
+    User getUserByEmail(String user);
 }

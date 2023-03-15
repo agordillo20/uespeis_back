@@ -1,19 +1,20 @@
 package com.uespeis.utils;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 
 public class Codifiquer {
+
+    private static Argon2PasswordEncoder encoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
 
     private Codifiquer(){
 
     }
     
     public static String encode(String pass){
-        return BCrypt.withDefaults().hashToString(15, pass.toCharArray());
+        return encoder.encode(pass);
     }
 
     public static boolean compare(String hash,String pass){
-        BCrypt.Result result = BCrypt.verifyer().verify(pass.toCharArray(), hash);
-        return result.verified;
+        return encoder.matches(pass, hash);
     }
 }
