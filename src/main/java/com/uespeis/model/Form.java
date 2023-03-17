@@ -1,5 +1,6 @@
 package com.uespeis.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class Form {
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent")
+    @JsonIgnore
     private FormParent parent;
 
     @Override
