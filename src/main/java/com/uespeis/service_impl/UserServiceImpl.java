@@ -17,21 +17,22 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
 
     @Override
-    public void saveUser(User user) {
-        userRepository.save(user);
+    public User saveUser(User user) {
+
+        return userRepository.save(user);
     }
 
     @Override
     public boolean auth(String user, String pwd) {
         boolean resultG = false;
         var userGet = userRepository.getUserByEmail(user);
-        if(userGet!=null){
-            var result=Codifiquer.compare(userGet.getPassword(), pwd);
-            if(result){
+        if (userGet != null) {
+            var result = Codifiquer.compare(userGet.getPassword(), pwd);
+            if (result) {
                 userGet.setLastAccess(LocalDateTime.now());
                 saveUser(userGet);
             }
-            resultG=result;
+            resultG = result;
         }
         return resultG;
     }
@@ -39,17 +40,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getRol(String user) {
         var userGet = userRepository.getUserByEmail(user);
-        if(userGet!=null){
+        if (userGet != null) {
             return userGet.getRol();
         }
         return null;
     }
 
     @Override
-    public User findUserByEmail(String email){
+    public User findUserByEmail(String email) {
         return userRepository.getUserByEmail(email);
     }
-
-    
 
 }

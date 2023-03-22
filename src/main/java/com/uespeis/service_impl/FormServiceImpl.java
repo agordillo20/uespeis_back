@@ -25,4 +25,9 @@ public class FormServiceImpl implements FormService {
         return repository.getActiveFormByUserId(idUser);
     }
 
+    @Override
+    public void save(Form form) {
+        repository.save(form);
+    }
+
 }
