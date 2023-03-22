@@ -6,5 +6,6 @@ import com.uespeis.model.UserQuestions;
 
 public interface UserQuestionService {
     
-    public List<UserQuestions> getAnswersFromUserAndForm(Integer id_user,Integer id_form);
+    public List<UserQuestions> getAnswersFromUserAndForm(Integer idUser,Integer idForm);
+
 }

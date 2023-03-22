@@ -3,13 +3,9 @@ package com.uespeis.controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -48,20 +44,20 @@ public class UserController {
         j.put("resultado", service.getRol(user));
         return j;
     }
-// prueba
+
     @PostMapping("/register")
     public boolean register(@RequestBody String msg) {
+        var entrada = new org.json.JSONObject(msg);
         boolean result = false;
         ObjectMapper mapper = new ObjectMapper();
         try {
-            User userr = mapper.readValue(msg.toString(), new TypeReference<User>() {
-            });
+            User userr = mapper.readValue(entrada.toString(), new TypeReference<User>() {});
             User u = service.saveUser(userr);
             if (u != null) {
                 serviceFormParent.getAll().forEach(p -> {
                     Form f = new Form();
                     f.setIdUser(u.getId());
-                    f.setLoocked(p.getType() != "primary");
+                    f.setLoocked(!p.getType().equals("primary"));
                     f.setParent(p);
                     serviceForm.save(f);
                 });
