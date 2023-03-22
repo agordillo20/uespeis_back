@@ -48,7 +48,7 @@ public class UserController {
         j.put("resultado", service.getRol(user));
         return j;
     }
-
+// prueba
     @PostMapping("/register")
     public boolean register(@RequestBody String msg) {
         boolean result = false;
