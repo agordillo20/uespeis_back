@@ -1,8 +1,12 @@
 package com.uespeis.service_impl;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.uespeis.model.Profile;
 import com.uespeis.model.User;
 import com.uespeis.repository.UserRepository;
 import com.uespeis.service.UserService;
@@ -46,6 +50,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByEmail(String email) {
         return userRepository.getUserByEmail(email);
+    }
+
+    @Override
+    public void completeProfile(Integer idUser, Profile prof) {
+        Optional<User> u  = userRepository.findById(idUser);
+        if(u.isPresent()){
+            u.get().setProfile(prof);
+            userRepository.save(u.get());
+        }
+        
     }
 
 }

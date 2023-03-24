@@ -1,5 +1,6 @@
 package com.uespeis.service;
 
+import com.uespeis.model.Profile;
 import com.uespeis.model.User;
 
 public interface UserService {
@@ -11,5 +12,7 @@ public interface UserService {
     public String getRol(String user);
 
     public User findUserByEmail(String email);
+
+    public void completeProfile(Integer idUser,Profile prof);
 
 }

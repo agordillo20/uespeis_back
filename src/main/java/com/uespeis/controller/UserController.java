@@ -14,6 +14,9 @@ import com.uespeis.model.User;
 import com.uespeis.service_impl.FormParentServiceImpl;
 import com.uespeis.service_impl.FormServiceImpl;
 import com.uespeis.service_impl.UserServiceImpl;
+import com.uespeis.utils.Codifiquer;
+import com.uespeis.utils.EnumTypeForUse;
+
 import net.minidev.json.JSONObject;
 
 @RestController
@@ -46,26 +49,28 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public boolean register(@RequestBody String msg) {
+    public JSONObject register(@RequestBody String msg) {
         var entrada = new org.json.JSONObject(msg);
-        boolean result = false;
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            User userr = mapper.readValue(entrada.toString(), new TypeReference<User>() {});
-            User u = service.saveUser(userr);
-            if (u != null) {
-                serviceFormParent.getAll().forEach(p -> {
-                    Form f = new Form();
-                    f.setIdUser(u.getId());
-                    f.setLoocked(!p.getType().equals("primary"));
-                    f.setParent(p);
-                    serviceForm.save(f);
-                });
-                result = true;
-            }
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return result;
+        var email = entrada.getString("email");
+        var pwd = entrada.getString("password");
+        User u = new User(EnumTypeForUse.rol.DEFAULT);
+        u.setEmail(email);
+        u.setLocked(false);
+        u.setPassword(Codifiquer.encode(pwd));
+        User userRegister = service.saveUser(u);
+        serviceFormParent.getAll().forEach(p -> {
+            Form f = new Form();
+            f.setIdUser(userRegister.getId());
+            System.out.println(p.getType());
+            f.setLoocked(!p.getType().equals("primary"));
+            f.setParent(p);
+            serviceForm.save(f);
+        });
+        var j = new JSONObject();
+        j.put("resultado", userRegister.getId());
+        return j;
     }
+
+    
+
 }
