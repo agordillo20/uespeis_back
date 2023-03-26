@@ -1,8 +1,7 @@
 import { Questions } from "./Questions";
 
 export type Formularios = {
-    id:Number,
+    id:number,
     questions:Questions[],
-    type:String,
+    type:string,
 }
-  

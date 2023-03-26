@@ -33,6 +33,7 @@ public class FormParentController {
         try {
             FormParent formu = mapper.readValue(entrada.toString(), new TypeReference<FormParent>() {});
             formu.getQuestions().forEach(q->q.setFormId(formu));
+            formu.getForms().forEach(f->f.setParent(formu));
             return service.save(formu);
         } catch (JsonProcessingException e) {
             e.printStackTrace();

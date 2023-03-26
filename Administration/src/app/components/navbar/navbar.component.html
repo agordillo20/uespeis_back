@@ -6,19 +6,20 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
         <ul class="navbar-nav w-100">
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" *ngIf="isLoggin">
             <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               Vistas
             </button>
             <ul class="dropdown-menu dropdown-menu-dark">
-              <li><a class="dropdown-item" href="#">Formularios</a></li>
-              <li><a class="dropdown-item" href="#">Filtros</a></li>
+              <li><a class="dropdown-item" href="/formularios">Formularios</a></li>
+              <li><a class="dropdown-item" href="/filtros">Filtros</a></li>
               <li><a class="dropdown-item" href="#">Archivos</a></li>
               <li><a class="dropdown-item" href="#">Relaciones</a></li>
             </ul>
           </li>
           <li class="nav-item ms-auto">
                 <button class="btn btn-dark" *ngIf="isLoggin" (click)="logout()">Desconectar</button>
+                <button class="btn btn-dark" *ngIf="!isLoggin" routerLink="/login">Inciar sesión</button>
           </li>
         </ul>
       </div>

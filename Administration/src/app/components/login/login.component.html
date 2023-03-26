@@ -1,4 +1,4 @@
-<div class="container-fluid d-flex justify-content-center" *ngIf="!isloggin">
+<div class="container-fluid d-flex justify-content-center">
     <div class="c-login text-bg-primary d-flex">
         <form #f="ngForm" (ngSubmit)="login(f)" class="d-flex flex-column gap-3 p-4 align-items-center justify-content-center w-100">
             <input type="email" class="form-control" placeholder="Email" id="email" email aria-label="email" aria-describedby="email" name="user" ngModel required #email="ngModel">

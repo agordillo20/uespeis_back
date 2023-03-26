@@ -3,12 +3,17 @@ package com.uespeis.controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Date;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.uespeis.model.Form;
 import com.uespeis.model.User;
 import com.uespeis.service_impl.FormParentServiceImpl;
@@ -37,7 +42,9 @@ public class UserController {
         var user = entrada.getString("user");
         var pwd = entrada.getString("password");
         var j = new JSONObject();
-        j.put("resultado", service.auth(user, pwd));
+        String jwt = service.auth(user, pwd);
+        j.put("resultado", jwt!=null);
+        j.put("jwt",jwt);
         return j;
     }
 
@@ -69,6 +76,21 @@ public class UserController {
         var j = new JSONObject();
         j.put("resultado", userRegister.getId());
         return j;
+    }
+
+    @PostMapping("/checkJWT")
+    public boolean isJWTvalid(@RequestBody String jwt){
+        DecodedJWT decode = JWT.decode(jwt);
+        Integer idUser = Integer.parseInt(decode.getSubject());
+        Optional<User> user = service.getUserById(idUser);
+        if(user.isPresent()){
+            boolean condicion1 = new Date().getTime()<decode.getExpiresAt().getTime();
+            boolean condicion2 = decode.getClaim("role").asString().equals(user.get().getRol());
+            return condicion1 && condicion2;
+        }else{
+            return false;
+        }
+        
     }
 
     

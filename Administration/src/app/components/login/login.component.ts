@@ -1,5 +1,7 @@
 import { Component,Output,EventEmitter,Input } from '@angular/core';
 import {NgForm} from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthPersistenceService } from 'src/app/utils/auth-persistence.service';
 import {ConsultasService} from '../../utils/consultas.service';
 
 @Component({
@@ -7,28 +9,36 @@ import {ConsultasService} from '../../utils/consultas.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent{
 
-  @Output() loggin:EventEmitter<string> = new EventEmitter();
-  @Input() isloggin:boolean=false;
-  constructor(private service:ConsultasService){}
+  constructor(private service:ConsultasService,private authPersistence:AuthPersistenceService,private router:Router){
+    authPersistence.isAuthenticated().subscribe(res=>{
+      if(res){
+        router.navigateByUrl("/home")
+      }
+    })
+  }
 
   login(f:NgForm){
     if(f.valid){
       this.service.authenticateUser(f.value).subscribe(res=>{
-        if(JSON.parse(JSON.stringify(res)).resultado){
+        let response = JSON.parse(JSON.stringify(res))
+        if(response.resultado){
           this.service.checkUserIsValid(f.value.user).subscribe((rol=>{
             let ob_rol=JSON.parse(JSON.stringify(rol)).resultado
             if(ob_rol!=null && ob_rol!="DEFAULT"){
-              this.loggin.emit("OK");
+              this.authPersistence.authenticate(response.jwt);
+              this.router.navigateByUrl("/home")
             }else{
-              this.loggin.emit("El usuario no tiene el rol correcto.")
+              alert("El usuario no tiene el rol correcto.")
             }
           }))
         }else{
-          this.loggin.emit("Datos introducidos incorrectos.")
+          alert("Datos introducidos incorrectos.")
         }
       })
+    }else{
+      alert("formulario no valido")
     }
   }
 
