@@ -49,7 +49,7 @@ public class MixedController {
         var userId = entrada.getInt("userId");
         ObjectMapper mapper = new ObjectMapper();
         try {
-            Profile profile = mapper.readValue(entrada.get("profile").toString(), new TypeReference<Profile>() {});
+            Profile profile = mapper.readValue(entrada.getString("profile"), new TypeReference<Profile>() {});
             serviceUser.completeProfile(userId, profile);
             response = true;
         } catch (JsonProcessingException e) {

@@ -43,8 +43,8 @@ public class UserController {
         var pwd = entrada.getString("password");
         var j = new JSONObject();
         String jwt = service.auth(user, pwd);
-        j.put("resultado", jwt!=null);
-        j.put("jwt",jwt);
+        j.put("resultado", jwt != null);
+        j.put("jwt", jwt);
         return j;
     }
 
@@ -79,20 +79,51 @@ public class UserController {
     }
 
     @PostMapping("/checkJWT")
-    public boolean isJWTvalid(@RequestBody String jwt){
+    public boolean isJWTvalid(@RequestBody String jwt) {
+        boolean result = false;
         DecodedJWT decode = JWT.decode(jwt);
         Integer idUser = Integer.parseInt(decode.getSubject());
         Optional<User> user = service.getUserById(idUser);
-        if(user.isPresent()){
-            boolean condicion1 = new Date().getTime()<decode.getExpiresAt().getTime();
+        if (user.isPresent()) {
+            boolean condicion1 = new Date().getTime() < decode.getExpiresAt().getTime();
             boolean condicion2 = decode.getClaim("role").asString().equals(user.get().getRol());
-            return condicion1 && condicion2;
-        }else{
-            return false;
+            result = condicion1 && condicion2;
         }
-        
+        return result;
     }
 
-    
+    @PostMapping("/checkJWT_android")
+    public JSONObject isJWTvalidAndroid(@RequestBody String msg) {
+        String result = "";
+        var entrada = new org.json.JSONObject(msg);
+        String jwt = entrada.getString("jwt");
+        DecodedJWT decode = JWT.decode(jwt);
+        Integer idUser = Integer.parseInt(decode.getSubject());
+        Optional<User> user = service.getUserById(idUser);
+        if (user.isPresent()) {
+            boolean condicion1 = new Date().getTime() < decode.getExpiresAt().getTime();
+            boolean condicion2 = decode.getClaim("role").asString().equals(user.get().getRol());
+            if (condicion1 && condicion2) {
+                result = user.get().getEmail();
+            }
+        }
+        var json = new JSONObject();
+        json.put("resultado", result);
+        return json;
+    }
+
+    @PostMapping("/profile-is-completed")
+    public JSONObject checkIfProfileIsCompleted(@RequestBody String msg) {
+        JSONObject result = new JSONObject();
+        boolean resultb = false;
+        var entrada = new org.json.JSONObject(msg);
+        User u = service.findUserByEmail(entrada.getString("email"));
+        if (u.getProfile() != null) {
+            resultb = true;
+        }
+        result.put("userId", u.getId());
+        result.put("resultado", resultb);
+        return result;
+    }
 
 }
