@@ -36,4 +36,10 @@ export class ConsultasService {
     return this.http.post<boolean>(this.url_base+"users/checkJWT",jwt);
   }
 
+  getAllValuesToFilter(){
+    return this.http.post<JSON>(this.url_base+"mixed/getFieldValue",null);
+  }
+  filterByUser(datos:any){
+    return this.http.post<JSON>(this.url_base+"mixed/filter/byUser",JSON.stringify(datos));
+  }
 }

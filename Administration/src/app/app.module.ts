@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from  '@angular/common/http';
 import { FormulariosComponent } from './components/formularios/formularios.component';
 import { FilterComponent } from './components/filter/filter.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FilterComponent } from './components/filter/filter.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

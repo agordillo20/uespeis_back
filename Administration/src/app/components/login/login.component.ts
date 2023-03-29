@@ -29,6 +29,7 @@ export class LoginComponent{
             if(ob_rol!=null && ob_rol!="DEFAULT"){
               this.authPersistence.authenticate(response.jwt);
               this.router.navigateByUrl("/home")
+              window.location.reload();
             }else{
               alert("El usuario no tiene el rol correcto.")
             }
