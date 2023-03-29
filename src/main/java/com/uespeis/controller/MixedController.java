@@ -17,6 +17,7 @@ import com.uespeis.model.Profile;
 import com.uespeis.model.Questions;
 import com.uespeis.service_impl.FormParentServiceImpl;
 import com.uespeis.service_impl.FormServiceImpl;
+import com.uespeis.service_impl.ProfileServiceImpl;
 import com.uespeis.service_impl.UserServiceImpl;
 
 import net.minidev.json.JSONObject;
@@ -32,6 +33,8 @@ public class MixedController {
     private FormServiceImpl serviceForm;
     @Autowired
     private UserServiceImpl serviceUser;
+    @Autowired
+    private ProfileServiceImpl serviceProfile;
 
     
     @PostMapping("/getActiveQuestionsFromUser")
@@ -58,7 +61,16 @@ public class MixedController {
         JSONObject result = new JSONObject();
         result.put("result",response);
         return result;
+    }
 
+    @PostMapping("/getFieldValue")
+    public JSONObject getAllPosiblesValues(){
+        JSONObject result = new JSONObject();
+        result.put("result_st",serviceProfile.getAvailableValuesByStudy());
+        result.put("result_cs",serviceProfile.getAvailableValuesByCivilStatus());
+        result.put("result_gen",serviceProfile.getAvailableValuesByGenre());
+        result.put("result_ls",serviceProfile.getAvailableValuesByLaboralStatus());
+        return result;
     }
 
 }

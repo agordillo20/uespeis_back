@@ -3,10 +3,8 @@ package com.uespeis.service_impl;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.uespeis.model.Profile;
