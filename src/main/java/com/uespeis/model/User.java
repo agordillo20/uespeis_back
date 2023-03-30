@@ -1,10 +1,14 @@
 package com.uespeis.model;
 
 import java.time.LocalDateTime;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,18 +21,14 @@ public class User {
 	private Integer id;
 	private String email;
 	private String password;
-	private String gender;
 	private String rol;
-	private String civilStatus;
-	private String profession;
-	private String position;
 	private LocalDateTime lastAccess;
 	private boolean locked;
-	private LocalDateTime birthdayDate;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="profile_id",referencedColumnName = "id")
+	private Profile profile;
 
-	public User(Enum<?> gender, Enum<?> civilStatus, Enum<?> rol) {
-		this.gender = gender.name();
-		this.civilStatus = civilStatus.name();
+	public User(Enum<?> rol) {
 		this.rol = rol.name();
 	}
 

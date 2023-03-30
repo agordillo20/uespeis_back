@@ -21,7 +21,7 @@ export class ConsultasService {
   }
 
   getAllForms() {
-    return this.http.post<JSON>(this.url_base+"formsParent/getAll",null);
+    return this.http.post<Formularios[]>(this.url_base+"formsParent/getAll",null);
   }
 
   deleteQuestionFromForm(id_question: Number) {
@@ -32,4 +32,14 @@ export class ConsultasService {
     return this.http.post<Formularios>(this.url_base+"formsParent/update",active_formu);
   }
 
+  jwtValid(jwt:string){
+    return this.http.post<boolean>(this.url_base+"users/checkJWT",jwt);
+  }
+
+  getAllValuesToFilter(){
+    return this.http.post<JSON>(this.url_base+"mixed/getFieldValue",null);
+  }
+  filterByUser(datos:any){
+    return this.http.post<JSON>(this.url_base+"mixed/filter/byUser",JSON.stringify(datos));
+  }
 }

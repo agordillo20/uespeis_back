@@ -2,12 +2,20 @@ package com.uespeis.utils;
 
 public class EnumTypeForUse {
     public enum gender {
-        MALE, FEMALE, OTHER
+        MALE, FEMALE, NO_BINARY
     }
 
     public enum civil_status {
-        SINGLE, MARRIED, WIDOWED, DIVORCED, SEPARATED
-    }// WIDOWED=VIUDA/VIUDO
+        SINGLE, MARRIED,LIVE_WITH_PARTNER, WIDOWED, DIVORCED, SEPARATED
+    }
+
+    public enum study{
+        NO_STUDY,PRIMARY,SECONDARY,BACHILLERATO,FP,DEGREE
+    }
+
+    public enum employmentStatus{
+        ACTIVE,HOUSEWORK,STUDENT,RETIRED,UNEMPLOYED
+    }
 
     public enum rol {
         DEFAULT, CONSULTANT

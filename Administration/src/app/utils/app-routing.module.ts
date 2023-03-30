@@ -1,12 +1,36 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { inject, NgModule } from '@angular/core';
+import { CanActivateFn, Router, RouterModule, Routes } from '@angular/router';
+import { map, take } from 'rxjs';
+import { FilterComponent } from '../components/filter/filter.component';
+import { FormulariosComponent } from '../components/formularios/formularios.component';
 import { HomeComponent } from '../components/home/home.component';
 import { LoginComponent } from '../components/login/login.component';
+import { AuthPersistenceService } from './auth-persistence.service';
+
+const canActivate:CanActivateFn = () => {
+  let router = inject(Router)
+  let AuthPersistence = inject(AuthPersistenceService)
+  return AuthPersistence.isAuthenticated().pipe(
+    take(1),
+    map((res) => {
+      if (res) {
+        return true;
+      }
+      return router.createUrlTree(['/login']);
+    })
+  );
+}
 
 const routes: Routes = [
-  {path:'home',component:HomeComponent},
-  {path:'login',component:LoginComponent}
+  {path: '',component:HomeComponent},
+  {path: 'formularios', component: FormulariosComponent,canActivate: [canActivate]},
+  {path:'filtros',component:FilterComponent,canActivate:[canActivate]},
+  {path: 'login', component: LoginComponent},
+  {path: '**', redirectTo: ''}
 ];
+
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
