@@ -1,0 +1,7 @@
+<div class="container-fluid d-flex flex-column py-3">
+    <h3>Ficheros disponibles</h3>
+    <input type="file" class="form-control" accept="application/pdf,image/*,video/*" multiple="true" (change)="uploadResources($event)" id="fileUploader">
+    <div class="container" *ngIf="ficheros">
+
+    </div>
+</div>

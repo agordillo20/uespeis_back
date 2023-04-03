@@ -5,7 +5,9 @@ import { FilterComponent } from '../components/filter/filter.component';
 import { FormulariosComponent } from '../components/formularios/formularios.component';
 import { HomeComponent } from '../components/home/home.component';
 import { LoginComponent } from '../components/login/login.component';
+import { RelationsComponent } from '../components/relations/relations.component';
 import { AuthPersistenceService } from './auth-persistence.service';
+import { FicherosComponent } from '../components/ficheros/ficheros.component';
 
 const canActivate:CanActivateFn = () => {
   let router = inject(Router)
@@ -25,6 +27,8 @@ const routes: Routes = [
   {path: '',component:HomeComponent},
   {path: 'formularios', component: FormulariosComponent,canActivate: [canActivate]},
   {path:'filtros',component:FilterComponent,canActivate:[canActivate]},
+  {path:'relaciones',component:RelationsComponent,canActivate:[canActivate]},
+  {path:'archivos',component:FicherosComponent,canActivate:[canActivate]},
   {path: 'login', component: LoginComponent},
   {path: '**', redirectTo: ''}
 ];

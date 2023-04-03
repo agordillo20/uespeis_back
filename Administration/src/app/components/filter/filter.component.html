@@ -2,48 +2,59 @@
     <div class="d-flex flex-column">
         <h5>Filtros disponibles:</h5>
         <h6>Busqueda por usuario</h6>
-        <form [formGroup]="profileForm" (ngSubmit)="filtrar()">
+        <form [formGroup]="profileForm" (ngSubmit)="filtrarUser()">
             <div class="d-flex flex-row">
-            <input id="edad" formControlName="edad"type="text" placeholder="Edad" class="form-control">
-            <input id="altura" formControlName="altura" type="text" placeholder="Altura" class="form-control">
-            <input id="peso" formControlName="peso" type="text" placeholder="Peso" class="form-control" aria-placeholder="">
-            <select id="genero" formControlName="genero" class="form-control">
-                <option value="" disabled selected hidden>Genero</option>
-                <option *ngFor="let gen of genero" [value]="gen">{{gen}}</option>
-            </select>
-            <select id="estadoCivil" formControlName="estadoCivil" class="form-control">
-                <option value="" disabled selected hidden>Estado Civil</option>
-                <option *ngFor="let estado of estadoCivil" [value]="estado">{{estado}}</option>
-            </select>           
-            <select id="estadoLaboral" formControlName="estadoLaboral" class="form-control">
-                <option value="" disabled selected hidden>Estado Laboral</option>
-                <option *ngFor="let estado of estadoLaboral" [value]="estado">{{estado}}</option>
-            </select>
-            
-            <select id="estudios" formControlName="estudios" class="form-control">
-                <option  value="" disabled selected hidden>Estudios</option>
-                <option *ngFor="let estudio of estudios" [value]="estudio">{{estudio}}</option>
-            </select>
-            <button type="submit">Filtrar</button>
-        </div>
-    </form>
+                <input id="edad" formControlName="edad"type="text" placeholder="Edad" class="form-control">
+                <input id="altura" formControlName="altura" type="text" placeholder="Altura" class="form-control">
+                <input id="peso" formControlName="peso" type="text" placeholder="Peso" class="form-control" aria-placeholder="">
+                <select id="genero" formControlName="genero" class="form-control">
+                    <option value="" disabled selected hidden>Genero</option>
+                    <option *ngFor="let gen of genero" [value]="gen">{{gen}}</option>
+                </select>
+                <select id="estadoCivil" formControlName="estadoCivil" class="form-control">
+                    <option value="" disabled selected hidden>Estado Civil</option>
+                    <option *ngFor="let estado of estadoCivil" [value]="estado">{{estado}}</option>
+                </select>           
+                <select id="estadoLaboral" formControlName="estadoLaboral" class="form-control">
+                    <option value="" disabled selected hidden>Estado Laboral</option>
+                    <option *ngFor="let estado of estadoLaboral" [value]="estado">{{estado}}</option>
+                </select>
+                
+                <select id="estudios" formControlName="estudios" class="form-control">
+                    <option  value="" disabled selected hidden>Estudios</option>
+                    <option *ngFor="let estudio of estudios" [value]="estudio">{{estudio}}</option>
+                </select>
+                <button type="submit">Filtrar</button>
+            </div>
+        </form>
         <div class="d-flex border-1 m-2">
             <h6>Busqueda por preguntas</h6>
-            <select>
-                <option *ngFor="let formulario of formularios$ |async" [value]="formulario.id">{{formulario.type}}</option>
-            </select>
-            <select>
-                <option>Pregunta1</option>
-                <option>Pregunta2</option>
-            </select>
-            <select>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-            </select>
+            <form [formGroup]="questionForm" (ngSubmit)="filtrarQuestion()">
+                <ng-container *ngIf="formularios$ | async; let formulario">
+                    <select id="parent" formControlName="parent" (change)="filtrarFormulario(formulario,$event)">
+                        <option selected>Questionario</option>
+                        <option *ngFor="let f of formulario" [value]="f.id">{{f.type}}</option>
+                    </select>
+                    <select id="question_id" formControlName="question_id" *ngIf="active_form">
+                        <option selected>Pregunta</option>
+                        <option *ngFor="let q of active_form.questions" [value]="q.id">{{q.question}}</option>
+                    </select>
+                    <select id="question_id" formControlName="question_id" *ngIf="!active_form">
+                        <option selected>Selecciona un questionario padre</option>
+                    </select>
+
+                    <select id="answer" formControlName="answer">
+                        <option selected>Respuesta</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                    </select>
+                </ng-container>
+                <button type="submit">Filtrar</button>
+            </form>
         </div>
         
     </div>

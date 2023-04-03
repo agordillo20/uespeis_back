@@ -39,7 +39,17 @@ export class ConsultasService {
   getAllValuesToFilter(){
     return this.http.post<JSON>(this.url_base+"mixed/getFieldValue",null);
   }
+
   filterByUser(datos:any){
     return this.http.post<JSON>(this.url_base+"mixed/filter/byUser",JSON.stringify(datos));
   }
+
+  filterByQuestion(datos:any){
+    return this.http.post<JSON>(this.url_base+"mixed/filter/byQuestion",JSON.stringify(datos));
+  }
+
+  saveFile(file:any){
+    this.http.post(this.url_base+"archives/save",file).subscribe(res=>console.log(res));
+  }
+
 }

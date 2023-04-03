@@ -10,6 +10,8 @@ import { HttpClientModule } from  '@angular/common/http';
 import { FormulariosComponent } from './components/formularios/formularios.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RelationsComponent } from './components/relations/relations.component';
+import { FicherosComponent } from './components/ficheros/ficheros.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     FormulariosComponent,
     FilterComponent,
+    RelationsComponent,
+    FicherosComponent,
   ],
   imports: [
     BrowserModule,

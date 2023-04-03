@@ -11,4 +11,9 @@ public class ArchiveServiceImpl implements ArchiveService {
     @Autowired
     ArchiveRepository archiveRepository;
 
+    @Override
+    public com.uespeis.model.Archive save(com.uespeis.model.Archive a) {
+        return archiveRepository.save(a);
+    }
+
 }
