@@ -14,16 +14,18 @@ export class FicherosComponent {
 
   ficheros!:[]
 
-  uploadResources(event:any){//solo se ha guardado uno
-    let files:File[] = event.target.files
+  uploadResources(event:any){
+    console.log(event)
+    let files = event.target.files
+    console.log(files)
     for(let file of files){
       let formdata: FormData = new FormData();
       formdata.append('archive', file);
       this.service.saveFile(formdata);
-      let ficheros = (document.getElementById("fileUploader") as HTMLInputElement)
-      ficheros.value = ficheros.defaultValue
-      alert("Archivos guardados")
     }
+    let ficheros = (document.getElementById("fileUploader") as HTMLInputElement)
+    ficheros.value = ficheros.defaultValue
+    alert("Archivos guardados")
   }
 
 }
