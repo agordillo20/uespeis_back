@@ -1,7 +1,8 @@
 package com.uespeis.model;
 
-
+import java.io.IOException;
 import java.sql.Blob;
+import java.sql.SQLException;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -15,7 +16,17 @@ public class Archive {
 	private Integer id;
     private String type;
     @Lob
-    private Blob resource;
+    private byte[] resource;
     private Integer requiredScore;
+
+    public void setResource(Blob blob){
+        try {
+            this.resource = blob.getBinaryStream().readAllBytes();
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 	
 }

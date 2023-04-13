@@ -84,8 +84,13 @@ export class FilterComponent {
         let values = this.getValues(JSON.stringify(fila));
         this.renderizeBody(values);
       }
+    }else{
+      this.clearResults();
     }
-
+  }
+  clearResults() {
+    this.renderizeHead([]);
+    this.renderizeBody([]);
   }
 
   getFields(linea: string) {

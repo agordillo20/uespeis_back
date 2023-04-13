@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Fichero } from '../models/Ficheros';
 import { Formularios } from '../models/Formularios';
 import { Questions } from '../models/Questions';
 
@@ -49,7 +50,11 @@ export class ConsultasService {
   }
 
   saveFile(file:any){
-    this.http.post(this.url_base+"archives/save",file).subscribe(res=>console.log(res));
+    this.http.post(this.url_base+"archives/save",file).subscribe();
+  }
+
+  getAllFiles(){
+    return this.http.post<Fichero[]>(this.url_base+"archives/getAll",null);
   }
 
 }

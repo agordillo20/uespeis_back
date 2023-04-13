@@ -2,8 +2,10 @@ package com.uespeis.controller;
 
 import java.io.IOException;
 import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,13 @@ public class ArchiveController {
             e.printStackTrace();
         }
     }
+
+    @PostMapping("/getAll")
+    public List<Archive> getAll(){
+        return service.getAll();
+    }
+
+    
 
 
 

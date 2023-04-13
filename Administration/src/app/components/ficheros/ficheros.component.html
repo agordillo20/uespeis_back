@@ -1,7 +1,22 @@
 <div class="container-fluid d-flex flex-column py-3">
     <h3>Ficheros disponibles</h3>
     <input type="file" class="form-control" accept="application/pdf,image/*,video/*" multiple="true" (change)="uploadResources($event)" id="fileUploader">
-    <div class="container" *ngIf="ficheros">
-
+    <div class="container-fluid" *ngIf="ficheros.length>0">
+        <div class="row row-cols-2 justify-content-md-center align-items-center text-center">
+            <div *ngFor="let fichero of ficheros">
+                <ng-container *ngIf="fichero.type.startsWith('video')">
+                    <video controls  [id]="fichero.id" width="400px" height="400px">
+                        <source [src]="'data:'+fichero.type+';charset=utf-8;base64,'+fichero.resource | safe:'resourceUrl'">
+                    </video>
+                </ng-container>
+                <ng-container *ngIf="fichero.type.startsWith('image')">
+                    <img [src]="'data:'+fichero.type+';charset=utf-8;base64,'+fichero.resource | safe:'resourceUrl'" alt="" [id]="fichero.id">
+                </ng-container>
+                <ng-container *ngIf="fichero.type.startsWith('application')">
+                    <embed [src]="fichero.resource | safe:'resourceUrl'" [type]="fichero.type" [id]="fichero.id">
+                </ng-container>
+                <i class="bi bi-trash"></i>
+            </div>
+        </div>
     </div>
 </div>
