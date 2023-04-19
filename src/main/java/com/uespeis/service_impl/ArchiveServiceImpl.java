@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.uespeis.model.Archive;
+import com.uespeis.model.Activity;
 import com.uespeis.repository.ArchiveRepository;
 import com.uespeis.service.ArchiveService;
 
@@ -16,12 +16,12 @@ public class ArchiveServiceImpl implements ArchiveService {
     ArchiveRepository archiveRepository;
 
     @Override
-    public Archive save(Archive a) {
+    public Activity save(Activity a) {
         return archiveRepository.save(a);
     }
 
     @Override
-    public List<Archive> getAll() {
+    public List<Activity> getAll() {
         return archiveRepository.findAll();
     }
 

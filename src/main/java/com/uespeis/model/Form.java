@@ -3,6 +3,7 @@ package com.uespeis.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "forms")
@@ -10,7 +11,8 @@ import lombok.Data;
 public class Form {
     
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
 	private Integer id;
     private Integer idUser;
     private boolean loocked;

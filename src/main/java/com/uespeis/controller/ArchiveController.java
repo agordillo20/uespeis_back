@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.uespeis.model.Archive;
+import com.uespeis.model.Activity;
 import com.uespeis.service_impl.ArchiveServiceImpl;
 
 import jakarta.persistence.EntityManagerFactory;
@@ -35,7 +35,7 @@ public class ArchiveController {
     public void uploadPdfFile(@RequestParam("archive") MultipartFile file) {
 
         try {
-            Archive a = new Archive();
+            Activity a = new Activity();
             Session session = null;
             try{
                 session = getSessionFactory().getCurrentSession();
@@ -52,7 +52,7 @@ public class ArchiveController {
     }
 
     @PostMapping("/getAll")
-    public List<Archive> getAll(){
+    public List<Activity> getAll(){
         return service.getAll();
     }
 

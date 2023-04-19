@@ -2,11 +2,11 @@ package com.uespeis.service;
 
 import java.util.List;
 
-import com.uespeis.model.Archive;
+import com.uespeis.model.Activity;
 
 public interface ArchiveService {
 
-    public Archive save(Archive a);
-    public List<Archive> getAll();
+    public Activity save(Activity a);
+    public List<Activity> getAll();
 
 }

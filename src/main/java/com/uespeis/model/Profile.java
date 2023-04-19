@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Data
@@ -13,8 +14,9 @@ import lombok.NoArgsConstructor;
 public class Profile {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+	private Integer id;
     private String gender;
 	private Integer age;
     private Integer height;
