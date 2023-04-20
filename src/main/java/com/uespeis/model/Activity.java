@@ -1,9 +1,8 @@
 package com.uespeis.model;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "activity")
@@ -14,7 +13,7 @@ public class Activity {
     @GenericGenerator(name = "native", strategy = "native")
 	private Integer id;
     @ManyToOne
-    @JoinColumn(name="parent_id",nullable=false)
+    @JoinColumn(name="parent",nullable=false)
     private ActivityParent parent;
     private String text;
     @Lob

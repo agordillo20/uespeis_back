@@ -15,6 +15,6 @@ public class ActivityUserQuestion {
     private String answers;
     private String question;
     @ManyToOne
-    @JoinColumn(name="parent_id",nullable=false)
+    @JoinColumn(name="parent",nullable=false)
     private ActivityParent parent;
 }
