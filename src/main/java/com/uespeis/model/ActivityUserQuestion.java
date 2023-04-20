@@ -5,7 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "activity_user")
+@Table(name = "activity_user_question")
 @Data
 public class ActivityUserQuestion {
     @Id
@@ -13,7 +13,6 @@ public class ActivityUserQuestion {
     @GenericGenerator(name = "native", strategy = "native")
 	private Integer id;
     private String answers;
-    private String response;
     private String question;
     @ManyToOne
     @JoinColumn(name="parent_id",nullable=false)
