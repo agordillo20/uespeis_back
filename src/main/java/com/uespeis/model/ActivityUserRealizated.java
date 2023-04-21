@@ -13,10 +13,10 @@ public class ActivityUserRealizated {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
 	private Integer id;
-    
+    @ManyToOne
     @JoinColumn(name="parent_id",nullable=false)
     private ActivityParent parent;
-
+    @ManyToOne
     @JoinColumn(name="user_id",nullable=false)
     private User user;
 
