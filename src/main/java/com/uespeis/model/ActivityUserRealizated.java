@@ -5,7 +5,6 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "activity_user_realizated")
 @Data
 public class ActivityUserRealizated {
     

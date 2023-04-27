@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -16,6 +18,8 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Data
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -27,11 +31,7 @@ public class User {
 	private LocalDateTime lastAccess;
 	private boolean locked;
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="profile_id",referencedColumnName = "id")
+	@JoinColumn(name="profile_id")
 	private Profile profile;
-
-	public User(Enum<?> rol) {
-		this.rol = rol.name();
-	}
 
 }

@@ -4,8 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name = "activity")
 @Data
 public class Activity {
     @Id
@@ -14,19 +15,11 @@ public class Activity {
 	private Integer id;
     @ManyToOne
     @JoinColumn(name="parent",nullable=false)
+    @JsonIgnore
     private ActivityParent parent;
+    @Column(columnDefinition="TEXT")
     private String text;
-    @Lob
-    private byte[] resource;
-/*check if its necessary
-    public void setResource(Blob blob){
-        try {
-            this.resource = blob.getBinaryStream().readAllBytes();
-        } catch (IOException | SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
-
-
-	
+    @ManyToOne
+    @JoinColumn(name="resources",nullable=true)
+    private Resources resources;
 }

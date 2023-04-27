@@ -3,9 +3,12 @@ package com.uespeis.controller;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,16 +18,17 @@ import org.apache.commons.beanutils.ConvertUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.uespeis.model.ActivityUserQuestion;
 import com.uespeis.model.Profile;
-import com.uespeis.model.Questions;
-import com.uespeis.service.UserQuestionService;
-import com.uespeis.service_impl.FormParentServiceImpl;
+import com.uespeis.model.Question;
+import com.uespeis.service.QuestionResponseService;
+import com.uespeis.service_impl.ActivityParentServiceImpl;
+import com.uespeis.service_impl.ActivityUserQuestionResponseServiceImpl;
 import com.uespeis.service_impl.FormServiceImpl;
 import com.uespeis.service_impl.ProfileServiceImpl;
-import com.uespeis.service_impl.UserQuestionServiceImpl;
+import com.uespeis.service_impl.QuestionResponseServiceImpl;
 import com.uespeis.service_impl.UserServiceImpl;
-
-import net.minidev.json.JSONObject;
+import com.uespeis.utils.RequestReader;
 
 @RestController
 @CrossOrigin("*")
@@ -32,42 +36,37 @@ import net.minidev.json.JSONObject;
 public class MixedController {
 
     @Autowired
-    private FormParentServiceImpl serviceFormParent;
-    @Autowired
     private FormServiceImpl serviceForm;
     @Autowired
     private UserServiceImpl serviceUser;
     @Autowired
     private ProfileServiceImpl serviceProfile;
     @Autowired
-    private UserQuestionServiceImpl serviceUserQuestion;
+    private QuestionResponseServiceImpl serviceUserQuestion;
 
-    @PostMapping("/getActiveQuestionsFromUser")
-    public List<Questions> getActiveQuestionsFromUser(@RequestBody String mensaje) {
-        var entrada = new JSONArray(mensaje);
-        Integer idUser = serviceUser.findUserByEmail(entrada.getString(0)).getId();
-        Integer idParent = serviceForm.getActiveFormByUserId(idUser).getParent().getId();
-        return serviceFormParent.getQuestionFromParentId(idParent);
-    }
+    @Autowired
+    private ActivityParentServiceImpl activityParentServiceImpl;
+    @Autowired
+    private ActivityUserQuestionResponseServiceImpl activityUserQuestionResponseServiceImpl;
 
     @PostMapping("/complete-profile")
-    public JSONObject completeProfile(@RequestBody String mensaje) {
+    public ResponseEntity<Boolean> completeProfile(@RequestBody String mensaje) {
+        Map<String, String> transformToMap = RequestReader.transformToMap(mensaje);
         boolean response = false;
-        var entrada = new org.json.JSONObject(mensaje);
-        var userId = entrada.getInt("userId");
+        var userId = Integer.valueOf(transformToMap.get("userId"));
         ObjectMapper mapper = new ObjectMapper();
         try {
-            Profile profile = mapper.readValue(entrada.getString("profile"), new TypeReference<Profile>() {
+            Profile profile = mapper.readValue(transformToMap.get("profile"), new TypeReference<Profile>() {
             });
             serviceUser.completeProfile(userId, profile);
             response = true;
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        JSONObject result = new JSONObject();
-        result.put("result", response);
-        return result;
+        return ResponseEntity.ok().body(response);
     }
+
+    
 
     @PostMapping("/getFieldValue")
     public JSONObject getAllPosiblesValues() {
@@ -104,23 +103,14 @@ public class MixedController {
         Integer idQuestion = (Integer) checkValueAndGet("question_id",Integer.class,entrada);
         Integer answer = (Integer) checkValueAndGet("answer",Integer.class,entrada);
         //procesamiento
-        var filterUserQuestions = serviceUserQuestion.filterUserQuestions(idQuestion,answer);
+        var filterQuestionResponse = serviceUserQuestion.filterQuestionResponse(idQuestion,answer);
         List<Profile> resultado = new ArrayList<>();
-        filterUserQuestions.forEach(uq->{
-            var user = serviceUser.getUserById(uq.getIdUser());
-            if(user.isPresent()){
-                var profile = user.get().getProfile();
-                if(profile!=null){
-                    resultado.add(profile);
-                }
-            }
-        });
+        filterQuestionResponse.forEach(qr-> resultado.add(qr.getForm().getUser().getProfile()));
         //devolución
         JSONObject result = new JSONObject();
         result.put("result",resultado);
         return result;
     }
-
 
     private Object checkValueAndGet(String field,Class<?> clazz,org.json.JSONObject entrada){
         String f = entrada.getString(field);

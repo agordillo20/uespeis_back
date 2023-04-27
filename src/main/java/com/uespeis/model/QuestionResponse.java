@@ -5,15 +5,18 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "users_questions")
 @Data
-public class UserQuestions {
+public class QuestionResponse {
 
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
 	private Integer id;
-    private Integer idUser;
-    private Integer idQuestion;
+    @ManyToOne
+    @JoinColumn(name="question_id")
+    private Question question;
     private Integer answer;
+    @ManyToOne
+    @JoinColumn(name="form_id",nullable=false)
+    private Form form;
 }

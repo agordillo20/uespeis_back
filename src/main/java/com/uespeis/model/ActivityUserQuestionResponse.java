@@ -1,12 +1,18 @@
 package com.uespeis.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "activity_user_question_response")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ActivityUserQuestionResponse {
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
