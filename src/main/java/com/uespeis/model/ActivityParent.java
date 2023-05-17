@@ -21,10 +21,6 @@ public class ActivityParent {
     @OneToMany(mappedBy = "parent")
     private List<Activity> activities;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "parent")
-    private List<ActivityUserQuestion> activitiesUserQuestions;
-
     private String name;
     private Integer totalForComplete;
 

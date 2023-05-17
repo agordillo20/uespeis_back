@@ -14,7 +14,7 @@ public class ActivityUserRealizated {
 	private Integer id;
     @ManyToOne
     @JoinColumn(name="parent_id",nullable=false)
-    private ActivityParent parent;
+    private Activity parent;
     @ManyToOne
     @JoinColumn(name="user_id",nullable=false)
     private User user;

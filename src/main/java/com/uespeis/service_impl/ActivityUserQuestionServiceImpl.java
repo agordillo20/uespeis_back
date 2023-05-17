@@ -24,5 +24,10 @@ public class ActivityUserQuestionServiceImpl implements ActivityUserQuestionServ
     public ActivityUserQuestion findById(int int1) {
         return repository.getReferenceById(int1);
     }
+
+    @Override
+    public void save(ActivityUserQuestion aQuestion) {
+        repository.save(aQuestion);
+    }
     
 }

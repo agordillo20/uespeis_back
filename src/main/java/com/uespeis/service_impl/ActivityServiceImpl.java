@@ -17,5 +17,10 @@ public class ActivityServiceImpl implements ActivityService{
     public Activity findById(Integer id) {
         return repository.getReferenceById(id);
     }
+
+    @Override
+    public void save(Activity activity) {
+        repository.save(activity);
+    }
     
 }

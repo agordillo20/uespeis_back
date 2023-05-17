@@ -1,5 +1,7 @@
 package com.uespeis.service_impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,11 @@ public class ActivityUserQuestionResponseServiceImpl implements ActivityUserQues
     @Override
     public void save(ActivityUserQuestionResponse response) {
         repository.save(response);
+    }
+
+    @Override
+    public List<ActivityUserQuestionResponse> getFromParentAndUser(int parent, int user) {
+        return repository.getFromParentAndUser(parent,user);
     }
 
     

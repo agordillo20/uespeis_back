@@ -1,0 +1,8 @@
+<server>
+    <id>uespeis-repository</id>
+    <username>root</username>
+    <password>Su542$Qwerty</password>
+    <configuration>
+        <endpointChecking>false</endpointChecking>
+    </configuration>
+</server>

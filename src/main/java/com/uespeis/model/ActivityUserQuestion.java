@@ -21,7 +21,7 @@ public class ActivityUserQuestion {
     @ManyToOne
     @JoinColumn(name="parent",nullable=false)
     @JsonIgnore
-    private ActivityParent parent;
+    private SubActivity parent;
     @ManyToOne
     @JoinColumn(name = "resources")
     private Resources resources;

@@ -2,8 +2,8 @@ package com.uespeis.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.util.List;
 import org.hibernate.annotations.GenericGenerator;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -19,7 +19,7 @@ public class Activity {
     private ActivityParent parent;
     @Column(columnDefinition="TEXT")
     private String text;
-    @ManyToOne
-    @JoinColumn(name="resources",nullable=true)
-    private Resources resources;
+    @JsonIgnore
+    @OneToMany(mappedBy = "parent")
+    private List<SubActivity> subActivities;
 }
