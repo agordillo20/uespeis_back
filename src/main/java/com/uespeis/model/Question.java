@@ -9,9 +9,9 @@ import org.hibernate.annotations.GenericGenerator;
 public class Question {
 
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native")
-	private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+    private Integer id;
     private String title;
     private String type;
     private String interrogation;

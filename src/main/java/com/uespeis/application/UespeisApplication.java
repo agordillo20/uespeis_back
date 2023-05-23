@@ -84,6 +84,11 @@ public class UespeisApplication {
         this.initResource(true, 12, 800, 1000, null, "Actividad3_2.png");
         this.initResource(true, 13, 800, 1000, null, "Actividad3_3.png");
         this.initResource(false, 16, 800, 1000, null, "Actividad3_4.png");
+        this.initResource(true, 14, 800, 1000, null, "Actividad4_1.png");
+        // TODO: pdt implemetar multiples resoource sobre una misma actividad
+        // this.initResource(true, 15, 800, 1000, null, "Relajacion Muscular.mp3");
+        // TODO: Cambiar la implementacion del total a completar a la actividad.
+       // this.initResource(true, 15, 800, 1000, null, "Visualización.mp3");
         UespeisApplication.log.info("corriendo despues del initResources");
     }
 

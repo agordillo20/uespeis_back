@@ -18,16 +18,16 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 public class Resources {
-    
+
     @Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private Integer id;
     @Lob
-    @Column(columnDefinition="mediumblob")
+    @Column(columnDefinition = "longblob")
     private byte[] resource;
     private float width;
     private float height;
-    @Column(columnDefinition="TEXT")
+    @Column(columnDefinition = "TEXT")
     private String relatedText;
 }
