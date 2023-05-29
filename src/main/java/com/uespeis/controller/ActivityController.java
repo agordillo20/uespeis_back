@@ -1,6 +1,7 @@
 package com.uespeis.controller;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,8 @@ import com.uespeis.utils.RequestReader;
 @RequestMapping(path="/activity")
 public class ActivityController {
 
+    long oneDay = 86400000L;
+
     @Autowired
     private ActivityService aService;
     @Autowired
@@ -54,12 +57,27 @@ public class ActivityController {
     @Autowired
     private FormService fService;
 
-    @PostMapping("/getActualActivity/{id}")
-    public ResponseEntity<ActivityParent> getActualActivityForUser(@PathVariable("id") Integer id){
+
+    //TODO:PDT esto en realidad es getNextActivity
+    @PostMapping("/getNextActivity/{id}")
+    public ResponseEntity<?> getNextActivity(@PathVariable("id") Integer id){
         List<ActivityParent> allActivities = apService.getAll();
         List<ActivityUserRealizated> findByUserId = aurService.findByUserId(id);
         if(!findByUserId.isEmpty()){
-            Integer lastActivity = findByUserId.get(findByUserId.size()-1).getParent().getId();
+            ActivityUserRealizated last = findByUserId.get(findByUserId.size()-1);
+            ActivityParent lastActivity = last.getParent().getParent();
+            int index = allActivities.indexOf(lastActivity);
+            if(index!=-1 && index!=allActivities.size()-1){
+                if(getMinusTime(last)>=oneDay){
+                    return ResponseEntity.ok().body(allActivities.get(index+1));
+                }else{
+                    return ResponseEntity.ok().body("tiempo restante - "+getMinusTime(last));
+                }
+
+            }else{
+                return ResponseEntity.ok().body(new ActivityParent());
+            }
+            /*
             Optional<ActivityParent> findFirst = allActivities.stream().filter(ac->ac.getId()==lastActivity).findFirst();
             if(findFirst.isPresent()){
                 Integer totalForPass = findFirst.get().getTotalForComplete();
@@ -71,10 +89,48 @@ public class ActivityController {
                 }
             }else{
                 return ResponseEntity.ok().body(new ActivityParent());
-            }
+            }*/
         }else{
             return ResponseEntity.ok().body(allActivities.get(0));
         }
+    }
+
+    private long getMinusTime(ActivityUserRealizated last){
+        long lastActivityDo = last.getDate().getTime();
+        long actual = new Date().getTime();
+        return actual-lastActivityDo;
+    }
+
+    @PostMapping("/getActualActivityForDiagram/{id}")
+    public ResponseEntity<Integer> getActualActivityForUser(@PathVariable("id") Integer id){
+        List<ActivityParent> allActivities = apService.getAll();
+        List<ActivityUserRealizated> findByUserId = aurService.findByUserId(id);
+        return ResponseEntity.ok().body(
+            !findByUserId.isEmpty()?
+            findByUserId.get(findByUserId.size()-1).getParent().getParent().getId()+1:
+            allActivities.get(0).getId()
+        );
+    }
+
+    @PostMapping("/getActualActivity/{id}")
+    public ResponseEntity<String> getActualActivityForUserV2(@PathVariable("id") Integer id){
+        List<ActivityParent> allActivities = apService.getAll();
+        List<ActivityUserRealizated> findByUserId = aurService.findByUserId(id);
+        if(!findByUserId.isEmpty()){
+            ActivityUserRealizated last = findByUserId.get(findByUserId.size()-1);
+            long time = getMinusTime(last);
+            int lastId = last.getParent().getParent().getId();
+            Integer totalComplete = aurService.findByUserIdAndParent(id,last.getParent().getId());
+            if(time>=oneDay){
+                return ResponseEntity.ok().body(totalComplete<last.getParent().getTotalForComplete()?String.valueOf(lastId):String.valueOf(lastId+1));
+            }else{
+                return ResponseEntity.ok().body("tiempo restante - "+(oneDay-time)+"-"+(totalComplete<last.getParent().getTotalForComplete()?String.valueOf(lastId):String.valueOf(lastId+1)));
+            }
+
+        }else{
+            ResponseEntity.ok().body(String.valueOf(allActivities.get(0).getId()));
+        }
+        return null;
     }
 
     @PostMapping("/getAllActivities/{id}")
@@ -107,6 +163,7 @@ public class ActivityController {
         }
     }
 
+    //TODO:ver que se haga correctamente, pero deberia de estar bien
     @PostMapping("/markActivityAsDone")
     public void markActivityAsDone(@RequestBody String mensaje){
         Map<String, String> transformToMap = RequestReader.transformToMap(mensaje);
@@ -116,10 +173,11 @@ public class ActivityController {
         if(u.isPresent()){
             done.setUser(u.get());
             done.setParent(findById);
+            done.setDate(new Date());
             aurService.save(done);
             List<ActivityUserRealizated> findByUserId = aurService.findByUserId(u.get().getId());
-            int totalActivitiesMustBe =  (int) apService.getAll().stream().mapToLong(a->a.getTotalForComplete()).sum();
-            int totalForPass = findById.getParent().getTotalForComplete();
+            int totalActivitiesMustBe =  (int) aService.getAll().stream().mapToLong(a->a.getTotalForComplete()).sum();
+            int totalForPass = findById.getTotalForComplete();
             int totalRealizatedOfActivity = (int) findByUserId.stream().filter(aur->aur.getParent().getId()==findById.getId()).count();
             if((totalForPass==totalRealizatedOfActivity) && (findByUserId.size()==totalActivitiesMustBe)){
                 Form f = Form.builder()
@@ -129,6 +187,10 @@ public class ActivityController {
                 fService.save(f);
             }
         }
+    }
+    @PostMapping("/getAll")
+    public ResponseEntity<List<ActivityParent>> getAll(){
+        return ResponseEntity.ok().body(apService.getAll());
     }
 
     @PostMapping("/getQuestionsResponsesForChart")

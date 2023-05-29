@@ -13,5 +13,8 @@ public interface ActivityUserRealizatedRepository extends JpaRepository<Activity
 
     @Query("Select aur from ActivityUserRealizated aur where user.id=?1 order by user.id desc")
     public List<ActivityUserRealizated> findByUserId(Integer userId);
+
+    @Query("Select count(*) from ActivityUserRealizated aur where user.id=?1 and parent.id=?2")
+    public Integer findByUserIdAndParent(Integer userId,Integer parent);
     
 }

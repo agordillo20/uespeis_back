@@ -1,5 +1,7 @@
 package com.uespeis.service_impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,11 @@ public class ActivityServiceImpl implements ActivityService{
     @Override
     public void save(Activity activity) {
         repository.save(activity);
+    }
+
+    @Override
+    public List<Activity> getAll() {
+        return repository.findAll();
     }
     
 }

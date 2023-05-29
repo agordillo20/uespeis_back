@@ -20,9 +20,8 @@ public class ActivityParent {
     @JsonIgnore
     @OneToMany(mappedBy = "parent")
     private List<Activity> activities;
-
     private String name;
-    private Integer totalForComplete;
+    
 
     
 }

@@ -23,5 +23,10 @@ public class ActivityUserRealizatedServiceImpl implements ActivityUserRealizated
     public void save(ActivityUserRealizated done) {
         repository.save(done);
     }
+
+    @Override
+    public Integer findByUserIdAndParent(Integer userId, Integer parent) {
+        return repository.findByUserIdAndParent(userId, parent);
+    }
     
 }

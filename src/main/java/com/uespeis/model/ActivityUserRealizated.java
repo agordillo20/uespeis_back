@@ -2,6 +2,8 @@ package com.uespeis.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import java.util.Date;
+
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -18,6 +20,6 @@ public class ActivityUserRealizated {
     @ManyToOne
     @JoinColumn(name="user_id",nullable=false)
     private User user;
-
+    private Date date;
 
 }

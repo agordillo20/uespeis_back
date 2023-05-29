@@ -22,4 +22,5 @@ public class Activity {
     @JsonIgnore
     @OneToMany(mappedBy = "parent")
     private List<SubActivity> subActivities;
+    private Integer totalForComplete;
 }

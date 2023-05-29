@@ -38,4 +38,5 @@ public class SubActivity {
     private Resources resources;
     @OneToMany(mappedBy = "parent")
     private List<ActivityUserQuestion> activitiesUserQuestions;
+    private boolean together;
 }
