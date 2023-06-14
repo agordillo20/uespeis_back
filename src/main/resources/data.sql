@@ -4,21 +4,23 @@ INSERT IGNORE INTO question(id,interrogation,title,type) VALUES(1,"He tenido pen
 INSERT IGNORE INTO form(id,loocked,user_id) VALUES(1,0,2);
 INSERT IGNORE INTO activity_parent VALUES (1,"Lo que a ti te impulsa"),(2,"Engrasando la máquina"),(3,"Consiguiendo lo necesario…"),(4,"Pensando en cómo pienso…"),(5,"Atrévete a sentir"),(6,"¿Cómo continuamos y mantenemos lo conseguido?");
 INSERT IGNORE INTO activity(id,text,parent,total_for_complete) VALUES (1,null,1,1),(2,null,2,4),(3,"Una rutina diaria estable",3,1),(4,"Entrenando mi nivel de activación",3,3),(5,null,4,1),(6,"Conociendo las emociones",5,1),(7,"¿Qué haces tú para gestionar tus emociones?",5,2),(8,null,6,1);
-INSERT IGNORE INTO sub_activity(id,parent,text,clave) VALUES 
-(1,1,"Empezar a entrenar es algo que, a la mayoría de mortales, puede costarnos un poco. El día que toca gimnasio siempre surge alguna excusa tentadora.\n\nPero siempre hay algo en nuestro interior que nos impulsa y nos hace seguir hacia delante.\nEso es lo que nos permite ser constantes y continuar caminando.",null),
-(2,1,"¿QUÉ TE IMPULSA A TI?\nEste programa es un reto que requiere esfuerzo y constancia. Para no flaquear en días difíciles, tenemos que saber muy bien cuál es nuestro objetivo, el motor que nos recuerda por qué estamos aquí y que nos ayuda a seguir cada día.", "Todos nos movemos por algo; recuerda tus metas."),
-(3,2,"Antes de empezar a trabajar hay que parar y escucharse: ¿Cómo te sientes? ¿Tienes cubiertas tus necesidades básicas? ¿Cómo es tu día a día? Para contestar a estar preguntas debemos fijarnos en estos aspectos básicos:", NULL),
-(4, 2, NULL, null),
-(5, 2, NULL, null),
-(6, 2, NULL, null),
-(7, 2, NULL, null),
-(8, 2, NULL, null),
-(9, 2, NULL, null),
-(10,3,"Como hemo visto en el segundo punto “Engrasando la máquina” hay cosas básicas que\nnecesitamos tener en nuestra vida para estar estables y que nuestras emociones también lo\nsean. Maslow, en su teoría sobre las necesidades humanas básicas, nos las ordena en forma de\npirámide.",null),
-(11,3,"TODOS tenemos algo que mejorar, así que vamos a ponernos a ello. ¿Qué tengo que hacer?\n1. Elige algo que modificar (eliminar, añadir, disminuir, aumentar) en tu rutina. ¿Cómo?\nRespóndete a estas preguntas para ello:",null),
-(12,3,"2. Especifica ese “algo” a modificar\n\nPor ejemplo, no es una buena formulación “no estar tan estresado”. Habría que indicar“realizar la técnica de relajación después de comer.”",null),
-(13,3,"3. Planifica cómo vas a modificarlo\n\nEn la mayoría de los casos, por una u otra cosa, es difícil modificar nuestra rutina diría. Por ello,es importante dividir lo que quieres modificar en los pasos necesarios para poder llegar aconseguirlo.\nSiendo el ejemplo anterior, si me estoy acostando a las 2 de la madrugada, no voy a poder cambiarlo de un día para otro sino que voy a tener que ir haciéndolo poco a poco (de 15 en 15 minutos).\nCompleta los pasos para alcanzar lo que te has propuesto:","Planifica qué, cuándo y cómo podría hacerlo. Piensa realista y ten en cuenta los“contras” para prevenirlos."),
-(14,4,"<div>
+INSERT IGNORE INTO sub_activity(id,parent,text,clave,together) VALUES 
+(1,1,"Empezar a entrenar es algo que, a la mayoría de mortales, puede costarnos un poco. El día que toca gimnasio siempre surge alguna excusa tentadora.\n\nPero siempre hay algo en nuestro interior que nos impulsa y nos hace seguir hacia delante.\nEso es lo que nos permite ser constantes y continuar caminando.",null,0),
+(2,1,"¿QUÉ TE IMPULSA A TI?\nEste programa es un reto que requiere esfuerzo y constancia. Para no flaquear en días difíciles, tenemos que saber muy bien cuál es nuestro objetivo, el motor que nos recuerda por qué estamos aquí y que nos ayuda a seguir cada día.", "Todos nos movemos por algo; recuerda tus metas.",0),
+(3,2,"Antes de empezar a trabajar hay que parar y escucharse: ¿Cómo te sientes? ¿Tienes cubiertas tus necesidades básicas? ¿Cómo es tu día a día? Para contestar a estar preguntas debemos fijarnos en estos aspectos básicos:", NULL,1),
+(4, 2, NULL, null,1),
+(5, 2, NULL, null,1),
+(6, 2, NULL, null,1),
+(7, 2, NULL, null,1),
+(8, 2, NULL, null,1),
+(9, 2, NULL, null,1),
+(10,3,"Como hemo visto en el segundo punto “Engrasando la máquina” hay cosas básicas que\nnecesitamos tener en nuestra vida para estar estables y que nuestras emociones también lo\nsean. Maslow, en su teoría sobre las necesidades humanas básicas, nos las ordena en forma de\npirámide.",null,0),
+(11,3,"¿Tienes la base de la pirámide? ¿Cuáles han sido los resultados de tus registros en el punto anterior?",null,1),
+(12,3,"¿Tienes que modificar alguno de estos aspectos para poder poner tu cuerpo en funcionamiento y que pueda dar el 100% para conseguir tus objetivos?",null,1),
+(13,3,"TODOS tenemos algo que mejorar, así que vamos a ponernos a ello. ¿Qué tengo que hacer?\n1. Elige algo que modificar (eliminar, añadir, disminuir, aumentar) en tu rutina. ¿Cómo?\nRespóndete a estas preguntas para ello:",null,0),
+(14,3,"2. Especifica ese “algo” a modificar\n\nPor ejemplo, no es una buena formulación “no estar tan estresado”. Habría que indicar“realizar la técnica de relajación después de comer.”",null,0),
+(15,3,"3. Planifica cómo vas a modificarlo\n\nEn la mayoría de los casos, por una u otra cosa, es difícil modificar nuestra rutina diría. Por ello,es importante dividir lo que quieres modificar en los pasos necesarios para poder llegar aconseguirlo.\nSiendo el ejemplo anterior, si me estoy acostando a las 2 de la madrugada, no voy a poder cambiarlo de un día para otro sino que voy a tener que ir haciéndolo poco a poco (de 15 en 15 minutos).\nCompleta los pasos para alcanzar lo que te has propuesto:","Planifica qué, cuándo y cómo podría hacerlo. Piensa realista y ten en cuenta los“contras” para prevenirlos.",0),
+(16,4,"<div>
     <p>¿Sientes nerviosismo? ¿A veces tienes palpitaciones? ¿Sientes mariposas en el estomágo (y no es por estar conociento
         al amor de tu vida…)? ¿Tienes muchas contracturas, te duele el cuello y/o la cabeza? Si tu cerebro va a 3000
         revoluciones por minuto pueden pasar estas cosas y es importante bajar su activación antes de “quemarlo”. Esto te
@@ -32,8 +34,8 @@ INSERT IGNORE INTO sub_activity(id,parent,text,clave) VALUES
         <li style='margin-left: 10px;'>Ponte de pie y coloca una mano sobre el pecho y otra sobre el estómago.</li>
         <li style='margin-left: 10px;'>Respira con normalidad. Al inhalar, observa tus manos, ¿cuál de ellas se mueve?</li>
     </ul>
-</div>",null),
-(15,4,"Con la idea de la respiración ya aprendida, vamos a pasar a reducir nuestro nivel de activación. ¿Cónocemos alguna técnica de relajación? Esa nos vendría bien practicar diarimente. \n Si no es así, aquí te dejamos 2 opciones que te pueden ser de utilidad. Son dos audios (de dos técnicas diferentes para que puedas probar cuál te gusta más) que te guian para aprender a bajar tu nivel de activación. \n ","no olvides regular tu activación para estar en un nivel funcional para funcionar");
+</div>",null,0),
+(17,4,"Con la idea de la respiración ya aprendida, vamos a pasar a reducir nuestro nivel de activación. ¿Cónocemos alguna técnica de relajación? Esa nos vendría bien practicar diarimente. \n Si no es así, aquí te dejamos 2 opciones que te pueden ser de utilidad. Son dos audios (de dos técnicas diferentes para que puedas probar cuál te gusta más) que te guian para aprender a bajar tu nivel de activación. \n ","no olvides regular tu activación para estar en un nivel funcional para funcionar",0);
 --parent = subactivity
 INSERT IGNORE INTO activity_user_question(id,answers,question,parent,type,unique_response,resources) VALUES
 (1,"Sé que no puedo seguir con este nivel de estrés;Creo que hay cosas más importantes que el consumismo de la vida diaria;No puedo continuar explotando cada vez que algo va mal;Seguir pagando mi malestar con los demás no me lleva a ningún lado;Mi cuerpo está sufriendo las consecuencias de mi ritmo de vida;Necesito aprender a manejar todo este estrés de otra manera;Otros","Marca aquellas casillas que te impulsan a estar aquí:",2,"checkbox",0,null),
@@ -44,13 +46,12 @@ INSERT IGNORE INTO activity_user_question(id,answers,question,parent,type,unique
 (6,"Pintar;Cantar;Ir de compras;Pasear;Hacer deporte;Meditar;Otros","¿Has realizado algún tipo de “actividad agradable”?",8,"checkbox",0,null),
 (7,"Quedar a comer o tomar algo;Cita con mi pareja;Dia de playa con amigos;Deporte o actividad colaborativa?;Visitar a familiares;Otros","¿Has realizado algún tipo de “actividad social”?",9,"checkbox",0,null),
 (8,null,"¿Cómo te has sentido? Escribe algunas emociones que lo reflejen",9,"question",0,null),
-(9,null,"¿Tienes la base de la pirámide? ¿Cuáles han sido los resultados de tus registros en el punto anterior? ¿Tienes que modificar alguno de estos aspectos para poder poner tu cuerpo enfuncionamiento y que pueda dar el 100% para conseguir tus objetivos?",10,"check",0,null),
-(10,null,"¿Qué es importante para mí?",11,"question",0,null),
-(11,null,"¿Qué me haría estar mejor?",11,"question",0,null),
-(12,null,"¿Por qué quiero lograr esto?",11,"question",0,null),
-(13,null,"¿Qué pasa ahora que no lo tengo?",11,"question",0,null),
-(14,null,"¿Qué pasará después de lograrlo?",11,"question",0,null),
-(15,null,"¿Tienes ya algo en mente?",11,"question",0,null),
-(16,null,"Anota aquí qué necesitas modificar:",12,"question",0,null),
-(17,null,"¿NOS PONERLOS EN MARCHA? Para mañana es tarde… comienza ahora mismo con el primer escalón. No tengas prisa pero, cuando lo hayas conseguido, pasa al siguiente. ¡ÁNIMO!",13,"steps",0,null),
-(18,"Facilidad para respirar (0-10);Concentración durante el ejercicio (0-10);Relajación al acabar (0-10)","Para completar este entrenamiento hazlo una vez al día durante 3 días. Además, completa la sieguente tabla:" ,15,"table",0,null);
+(9,null,"¿Qué es importante para mí?",13,"question",0,null),
+(10,null,"¿Qué me haría estar mejor?",13,"question",0,null),
+(11,null,"¿Por qué quiero lograr esto?",13,"question",0,null),
+(12,null,"¿Qué pasa ahora que no lo tengo?",13,"question",0,null),
+(13,null,"¿Qué pasará después de lograrlo?",13,"question",0,null),
+(14,null,"¿Tienes ya algo en mente?",13,"question",0,null),
+(15,null,"Anota aquí qué necesitas modificar:",14,"question",0,null),
+(16,null,"¿NOS PONERLOS EN MARCHA? Para mañana es tarde… comienza ahora mismo con el primer escalón. No tengas prisa pero, cuando lo hayas conseguido, pasa al siguiente. ¡ÁNIMO!",15,"steps",0,null),
+(17,"Facilidad para respirar (0-10);Concentración durante el ejercicio (0-10);Relajación al acabar (0-10)","Para completar este entrenamiento hazlo una vez al día durante 3 días. Además, completa la sieguente tabla:" ,15,"table",0,null);

@@ -1,38 +1,18 @@
-// 
-// Decompiled by Procyon v0.5.36
-// 
-
 package com.uespeis.application;
 
-import java.nio.file.Files;
-
-import com.uespeis.model.Activity;
 import com.uespeis.model.ActivityUserQuestion;
 import com.uespeis.model.Resources;
 import com.uespeis.model.SubActivity;
-
-import java.net.URISyntaxException;
 import java.io.IOException;
-import java.nio.file.FileSystem;
-import java.util.Map;
-import java.nio.file.FileSystems;
-import java.net.URI;
-import java.util.HashMap;
-import java.nio.file.Path;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.boot.SpringApplication;
 import org.apache.logging.log4j.LogManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.uespeis.service.ActivityService;
 import com.uespeis.service.ActivityUserQuestionService;
 import com.uespeis.service.ResourceService;
 import com.uespeis.service.SubActivityService;
-
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.context.annotation.ComponentScan;
@@ -81,13 +61,12 @@ public class UespeisApplication {
                 "Todo buen entrenamiento comienza con un calentamiento. ¡No íbamos a ser menos! En\r\ntu primera semana deberás “calentar” contestando a unas preguntas relacionadas con tus\r\nhábitos de alimentación, hidratación, sueño, actividades agradables y sociales y tus\r\nemociones. Contestaremos a estas preguntas en 4 días diferentes de la semana al final del\r\ndía.",
                 "Actividad2_6.png");
         this.initResource(true, 10, 800, 1000, null, "Actividad3_1.png");
-        this.initResource(true, 12, 800, 1000, null, "Actividad3_2.png");
-        this.initResource(true, 13, 800, 1000, null, "Actividad3_3.png");
-        this.initResource(false, 16, 800, 1000, null, "Actividad3_4.png");
-        this.initResource(true, 14, 800, 1000, null, "Actividad4_1.png");
-        // TODO: pdt implemetar multiples resoource sobre una misma actividad
+        this.initResource(true, 11, 700, 1000, null, "Actividad3_2.png");
+        this.initResource(true, 14, 800, 1000, null, "Actividad3_3.png");
+        this.initResource(false, 15, 800, 1000, null, "Actividad3_4.png");
+        this.initResource(false, 16, 800, 1000, null, "Actividad3_5.png");
+        this.initResource(true, 16, 800, 1000, null, "Actividad4_1.png");
         // this.initResource(true, 15, 800, 1000, null, "Relajacion Muscular.mp3");
-        // TODO: Cambiar la implementacion del total a completar a la actividad.
        // this.initResource(true, 15, 800, 1000, null, "Visualización.mp3");
         UespeisApplication.log.info("corriendo despues del initResources");
     }

@@ -25,8 +25,13 @@ public class ActivityUserRealizatedServiceImpl implements ActivityUserRealizated
     }
 
     @Override
-    public Integer findByUserIdAndParent(Integer userId, Integer parent) {
+    public List<ActivityUserRealizated> findByUserIdAndParent(Integer userId, Integer parent) {
         return repository.findByUserIdAndParent(userId, parent);
+    }
+
+    @Override
+    public List<ActivityUserRealizated> findByUserIdAndParentActivity(Integer userId, Integer parent) {
+        return repository.findByUserIdAndParentActivity(userId, parent);
     }
     
 }

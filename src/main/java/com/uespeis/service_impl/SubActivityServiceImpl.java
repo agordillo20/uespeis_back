@@ -25,8 +25,13 @@ public class SubActivityServiceImpl implements SubActivityService{
     }
 
     @Override
-    public List<SubActivity> getAllSubActivitiesFromActivityParent(Integer id) {
-       return repository.getAllSubActivitiesFromActivityParent(id);
+    public List<SubActivity> getAllSubActivitiesFromActivity(Integer id) {
+       return repository.getAllSubActivitiesFromActivity(id);
+    }
+
+    @Override
+    public Integer getMinActivityFromActivityParent(Integer id) {
+        return repository.getMinActivityFromActivityParent(id);
     }
     
 }

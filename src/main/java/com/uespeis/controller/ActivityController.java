@@ -1,15 +1,20 @@
 package com.uespeis.controller;
 
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +37,8 @@ import com.uespeis.service.FormService;
 import com.uespeis.service.SubActivityService;
 import com.uespeis.service.UserService;
 import com.uespeis.utils.RequestReader;
+
+import reactor.core.publisher.Mono;
 
 @RestController
 @CrossOrigin("*")
@@ -56,7 +63,6 @@ public class ActivityController {
     private UserService uService;
     @Autowired
     private FormService fService;
-
 
     //TODO:PDT esto en realidad es getNextActivity
     @PostMapping("/getNextActivity/{id}")
@@ -118,19 +124,19 @@ public class ActivityController {
         List<ActivityUserRealizated> findByUserId = aurService.findByUserId(id);
         if(!findByUserId.isEmpty()){
             ActivityUserRealizated last = findByUserId.get(findByUserId.size()-1);
+            long totalRequiered = last.getParent().getParent().getActivities().stream().collect(Collectors.summarizingInt(a->a.getTotalForComplete())).getSum();
             long time = getMinusTime(last);
             int lastId = last.getParent().getParent().getId();
-            Integer totalComplete = aurService.findByUserIdAndParent(id,last.getParent().getId());
+            Integer totalComplete = aurService.findByUserIdAndParentActivity(id,last.getParent().getParent().getId()).size();
             if(time>=oneDay){
-                return ResponseEntity.ok().body(totalComplete<last.getParent().getTotalForComplete()?String.valueOf(lastId):String.valueOf(lastId+1));
+                return ResponseEntity.ok().body(totalComplete<totalRequiered?String.valueOf(lastId):String.valueOf(lastId+1));
             }else{
-                return ResponseEntity.ok().body("tiempo restante - "+(oneDay-time)+"-"+(totalComplete<last.getParent().getTotalForComplete()?String.valueOf(lastId):String.valueOf(lastId+1)));
+                return ResponseEntity.ok().body("tiempo restante - "+(oneDay-time)+"-"+(totalComplete<totalRequiered?String.valueOf(lastId):String.valueOf(lastId+1)));
             }
 
         }else{
-            ResponseEntity.ok().body(String.valueOf(allActivities.get(0).getId()));
+            return ResponseEntity.ok().body(String.valueOf(allActivities.get(0).getId()));
         }
-        return null;
     }
 
     @PostMapping("/getAllActivities/{id}")
@@ -143,9 +149,27 @@ public class ActivityController {
         return ResponseEntity.ok().body(saService.findById(id).getActivitiesUserQuestions());
     }
 
-    @PostMapping("/getAllSubActivitiesFromParent/{id}")
-    public ResponseEntity<List<SubActivity>> getAllSubActivitiesFromParent(@PathVariable("id") Integer id){
-        return ResponseEntity.ok().body(saService.getAllSubActivitiesFromActivityParent(id));
+    @PostMapping("/getAllSubActivitiesFromParent")
+    public ResponseEntity<List<SubActivity>> getAllSubActivitiesFromParent(@RequestBody String mensaje){
+        var input = RequestReader.transformToMap(mensaje);
+        Integer idParentActivity = Integer.valueOf(input.get("parent"));
+        Integer idUser = Integer.valueOf(input.get("user"));
+        var realizated = aurService.findByUserIdAndParent(idUser, idParentActivity);
+        AtomicInteger idActivity = new AtomicInteger();
+        if(realizated.isEmpty()){
+            idActivity.set(saService.getMinActivityFromActivityParent(idParentActivity));
+        }else{
+            var collect = realizated.stream().collect(Collectors.groupingBy(ActivityUserRealizated::getParent));
+            collect.forEach((k,v)->{
+                if(k.getTotalForComplete()!=v.size()){
+                    idActivity.set(k.getId());
+                }
+            });
+            if(idActivity.get()==0){
+                idActivity.set(realizated.get(realizated.size()-1).getParent().getId()+1);
+            }
+        }
+        return ResponseEntity.ok().body(saService.getAllSubActivitiesFromActivity(idActivity.get()));
     }
 
     @PostMapping("/complete")
@@ -232,6 +256,6 @@ public class ActivityController {
         public void setQuestion(String question) {
             this.question = question;
         }
-        
     }
+
 }

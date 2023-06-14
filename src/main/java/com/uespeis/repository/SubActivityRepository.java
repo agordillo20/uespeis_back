@@ -11,7 +11,12 @@ import com.uespeis.model.SubActivity;
 @Repository
 public interface SubActivityRepository extends JpaRepository<SubActivity,Integer>{
 
-    @Query("Select sa from SubActivity sa where sa.parent.parent.id=?1")
-    List<SubActivity> getAllSubActivitiesFromActivityParent(Integer id);
+    @Query("Select sa from SubActivity sa where sa.parent.id=?1")
+    List<SubActivity> getAllSubActivitiesFromActivity(Integer id);
+
+    @Query("Select min(sa.parent.id) from SubActivity sa where sa.parent.parent.id=?1")
+    Integer getMinActivityFromActivityParent(Integer id);
+
+
     
 }

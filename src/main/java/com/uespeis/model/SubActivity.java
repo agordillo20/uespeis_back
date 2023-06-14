@@ -27,7 +27,6 @@ public class SubActivity {
 	private Integer id;
     @ManyToOne
     @JoinColumn(name="parent",nullable=false)
-    @JsonIgnore
     private Activity parent;
     @Column(columnDefinition="TEXT")
     private String text;

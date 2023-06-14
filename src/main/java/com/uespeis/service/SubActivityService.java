@@ -8,6 +8,7 @@ public interface SubActivityService {
 
     SubActivity findById(Integer id);
     void save(SubActivity subActivity);
-    List<SubActivity> getAllSubActivitiesFromActivityParent(Integer id);
+    List<SubActivity> getAllSubActivitiesFromActivity(Integer id);
+    Integer getMinActivityFromActivityParent(Integer id);
     
 }
