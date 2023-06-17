@@ -23,9 +23,7 @@ public class Resources {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private Integer id;
-    @Lob
-    @Column(columnDefinition = "longblob")
-    private byte[] resource;
+    private String resource;
     private float width;
     private float height;
     @Column(columnDefinition = "TEXT")

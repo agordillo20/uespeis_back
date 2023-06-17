@@ -154,7 +154,7 @@ public class ActivityController {
         var input = RequestReader.transformToMap(mensaje);
         Integer idParentActivity = Integer.valueOf(input.get("parent"));
         Integer idUser = Integer.valueOf(input.get("user"));
-        var realizated = aurService.findByUserIdAndParent(idUser, idParentActivity);
+        var realizated = aurService.findByUserIdAndParentActivity(idUser, idParentActivity);
         AtomicInteger idActivity = new AtomicInteger();
         if(realizated.isEmpty()){
             idActivity.set(saService.getMinActivityFromActivityParent(idParentActivity));
@@ -221,8 +221,7 @@ public class ActivityController {
     public ResponseEntity<Map<Integer, innerOb>> getQuestionsResponsesForChart(@RequestBody String mensaje){
         Map<String, String> transformToMap = RequestReader.transformToMap(mensaje);
         int user = Integer.parseInt(transformToMap.get("userID"));
-        int parent = Integer.parseInt(transformToMap.get("parent"));
-        List<ActivityUserQuestionResponse> fromParentAndUser = auqrService.getFromParentAndUser(parent,user);
+        List<ActivityUserQuestionResponse> fromParentAndUser = auqrService.getFromParentAndUser(2,user);
         Map<Integer,innerOb> mp = new HashMap<>();
         fromParentAndUser.forEach(f->{
             if(mp.containsKey(f.getActivityUserQuestion().getId())){
@@ -256,6 +255,17 @@ public class ActivityController {
         public void setQuestion(String question) {
             this.question = question;
         }
+    }
+    @PostMapping("/checkIfCanSeeGraphic")
+    public ResponseEntity<Boolean> checkIfCanSeeGraphic(@RequestBody String mensaje){
+        Map<String, String> transformToMap = RequestReader.transformToMap(mensaje);
+        int id = Integer.parseInt(transformToMap.get("userID"));
+        return ResponseEntity.ok().body(aurService.findByUserIdAndParentActivity(id,2).size()>=4);
+    }
+
+    @PostMapping("/getResponseForNotify/{id}")
+    public ResponseEntity<String> getResponseForNotify(@PathVariable("id") Integer id){
+        return ResponseEntity.ok().body(auqrService.getFromParentAndUser(1, id).get(0).getResponse().replace(";"," además, "));
     }
 
 }
