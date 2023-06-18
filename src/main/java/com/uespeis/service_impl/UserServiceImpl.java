@@ -68,6 +68,10 @@ public class UserServiceImpl implements UserService {
     public void completeProfile(Integer idUser, Profile prof) {
         Optional<User> u  = userRepository.findById(idUser);
         if(u.isPresent()){
+            Profile uProf = u.get().getProfile();
+            if(uProf!=null){
+                prof.setId(uProf.getId());
+            }
             u.get().setProfile(prof);
             userRepository.save(u.get());
         }
