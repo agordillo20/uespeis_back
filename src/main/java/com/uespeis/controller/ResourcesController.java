@@ -20,12 +20,10 @@ import reactor.core.publisher.Mono;
 @CrossOrigin("*")
 @RequestMapping(path="/resources")
 public class ResourcesController {
-    //TODO: IDEA: CAMBIAR EL METODO DE ABAJO Y USARLO PARA TODOS LOS RESOURCES, Y EN LA TABLA DE RESOURCES GUARDAR SOLO LOS NOMBRES
     
     @PostMapping("/get")
     public Mono<ResponseEntity<byte[]>> streamAudio(@RequestBody String mensaje) {
-        var input = RequestReader.transformToMap(mensaje);
-        return Mono.just(ResponseEntity.status(HttpStatus.OK).body(getByteArrayFromResource(input.get("name"))));
+        return Mono.just(ResponseEntity.status(HttpStatus.OK).body(getByteArrayFromResource(RequestReader.transformToMap(mensaje).get("name"))));
     }
   
     private byte[] getByteArrayFromResource(final String name) {

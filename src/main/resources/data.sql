@@ -11,11 +11,10 @@ INSERT IGNORE INTO resources(id,height,width,related_text,resource) VALUES
 (9,800,1000,null,"Actividad3_1.png"),
 (10,700,1000,null,"Actividad3_2.png"),
 (11,800,1000,null,"Actividad3_3.png"),
-(12,800,1000,null,"Actividad3_4.png"),--falta, va en las preguntas
-(13,800,1000,null,"Actividad3_5.png"),--falta, va en las preguntas
+(12,800,1000,null,"Actividad3_4.png"),
+(13,800,1000,null,"Actividad3_5.png"),
 (14,800,1000,null,"Actividad4_1.png"),
 (15,800,1000,null,"Actividad5_1.png"),
-(16,800,1000,null,"Actividad5_2.png"),
 (17,800,1000,null,"Actividad5_3.png"),
 (18,800,1000,null,"Actividad6_1.png"),
 (19,800,1000,null,"Actividad6_2.png"),
@@ -46,7 +45,7 @@ INSERT IGNORE INTO form(id,loocked,user_id) VALUES(1,0,2);
 INSERT IGNORE INTO activity_parent VALUES (1,"Lo que a ti te impulsa"),(2,"Engrasando la máquina"),(3,"Consiguiendo lo necesario…"),(4,"Pensando en cómo pienso…"),(5,"Atrévete a sentir"),(6,"¿Cómo continuamos y mantenemos lo conseguido?");
 
 --ACTIVITY
-INSERT IGNORE INTO activity(id,text,parent,total_for_complete) VALUES (1,null,1,1),(2,null,2,4),(3,"Una rutina diaria estable",3,1),(4,"Entrenando mi nivel de activación",3,3),(5,null,4,1),(6,"Conociendo las emociones",5,1),(7,"¿Qué haces tú para gestionar tus emociones?",5,2),(8,null,6,1);
+INSERT IGNORE INTO activity(id,text,parent,total_for_complete) VALUES (1,"Lo que a ti te impulsa",1,1),(2,"Engrasando la máquina",2,4),(3,"Una rutina diaria estable",3,1),(4,"Entrenando mi nivel de activación",3,3),(5,"Pensando en cómo pienso…",4,1),(6,"Conociendo las emociones",5,1),(7,"¿Qué haces tú para gestionar tus emociones?",5,2),(8,"¿Cómo continuamos y mantenemos lo conseguido?",6,1);
 
 --SUB ACTIVITY
 INSERT IGNORE INTO sub_activity(id,parent,text,clave,together,resources) VALUES 
@@ -80,11 +79,11 @@ INSERT IGNORE INTO sub_activity(id,parent,text,clave,together,resources) VALUES
         <li style='margin-left: 10px;'>Respira con normalidad. Al inhalar, observa tus manos, ¿cuál de ellas se mueve?</li>
     </ul>
 </div>",null,1,14),
-(17,4,"Si es la mano que está sobre el estómago, estás haciendo una respiración diafragmática. Los hombros y el pecho no deberían moverse.\nSi es la mano que está sobre el pecho, la respiración es pectoral o superficial, que es menos eficaz y no produce los beneficios de una respiración más profunda.Vamos a utilizar la respiración diafragmática. ¿Practicas?",null,0,null),
+(17,4,"Si es la mano que está sobre el estómago, estás haciendo una respiración diafragmática. Los hombros y el pecho no deberían moverse.\nSi es la mano que está sobre el pecho, la respiración es pectoral o superficial, que es menos eficaz y no produce los beneficios de una respiración más profunda.Vamos a utilizar la respiración diafragmática. ¿Practicas?",null,1,null),
 (18,4,"Con la idea de la respiración ya aprendida, vamos a pasar a reducir nuestro nivel de activación. ¿Cónocemos alguna técnica de relajación? Esa nos vendría bien practicar diarimente. \n Si no es así, aquí te dejamos 2 opciones que te pueden ser de utilidad. Son dos audios (de dos técnicas diferentes para que puedas probar cuál te gusta más) que te guian para aprender a bajar tu nivel de activación. \n ","no olvides regular tu activación para estar en un nivel funcional para funcionar",0,null),
 (19,5,"Seguimos con otra parte de nuestro entrenamiento emocional, LOS PENSAMIENTOS.\nNOTA: no olvides seguir practicando C1: la rutina estable y C2: el nivel de activación.",null,1,15),
 (20,5,"Sí, nuestros pensamientos están completamente ligados a nuestras emociones. Párate un segundo y piensa en algún momento en que estuvieras nervioso porque pensabas que algo malo iba a ocurrir (y al final no fue así). Ahora piensa en algún momento en el que te enfadaste con alguien porque pensabas que te había hecho algo a propósito y después no fue así.\nNuestros pensamientos acerca de una situación pueden marcar la forma en la que nos sentimos y nos comportamos. En el ejemplo anterior, si te enfadas por lo que piensas, ¿cómo puedes reaccionar? Pero, después, ¿y si las cosas no han ocurrido como las pensabas? ¿Y si has sufrido “para nada”?\nEsto nos lleva a plantearnos… ¿Nuestros pensamientos nos pueden engañar?",null,1,null),
-(21,5,"En efecto, sí, en nuestra cabeza saltan pensamientos automáticos, modos de interpretar la realidad que, a veces, no son 100% objetivos y reales. Son los errores del pensamiento. Existen muchos tipos de entre los que tenemos:",null,0,16),
+(21,5,"En efecto, sí, en nuestra cabeza saltan pensamientos automáticos, modos de interpretar la realidad que, a veces, no son 100% objetivos y reales. Son los errores del pensamiento. Existen muchos tipos de entre los que tenemos:\n<table border='1'><thead><tr><td>Nombre</td><td>Descripción</td><td>Ejemplo de pensamiento erroneo</td></tr></thead><tbody><tr><td>Adivinación del porvenir</td><td>La persona cree saber lo que va a pasar en un futuro próximo o lejano, siempre con una visión catastrofista. </td><td>Seguro que irá mal, no sacaré la plaza y van a terminar echando. </td></tr><tr><td>Afirmaciones tipo “Debería” / “Tendría” </td><td>La persona tiene una lista de reglas rígidas de cómo hay que actuar, creyendo que son las correctas. CLAVE: debería, no debería, tendría que, no tendría que,…</td><td>Tendría que poder hacer cinco series, no es normal para el tiempo que llevo entrenando, no puede ser.  </td></tr><tr><td>Razonamiento Emocional</td><td>La persona cree que lo que siente es lo verdadero, automáticamente. Si se siente así, es porque las cosas son así.</td><td>No estoy nada cómodo en la reunión, es una porquería de sesión, no sirve para nada.</td></tr><tr><td>Sobregeneralización</td><td>La persona extrae una conclusión general de un simple incidente o solo una parte de la evidencia. Palabras clave: nadie, todo, siempre, nunca,…</td><td>Siempre me pasa lo mismo, nunca doy ni una. A todos les sale bien menos a mí.</td></tr><tr><td>Lectura e interpretación del pensamiento</td><td>La persona cree saber lo que los demás están pensando, sintiendo o van a hacer; cree conocer sus motivos e intenciones. Es capaz de adivinar que piensan y sienten los demás sobre ella.</td><td>Seguro que me pone también el próximo turno; lo hace para fastidiar, sabe que no puedo entrar a esa hora.</td></tr></tbody></table>",null,0,null),
 (22,5,"¿Has tenido algún pensamiento de este tipo? ¿Algún otro que recuerdes que, al final, no era como lo habías creído?",null,1,null),
 (23,5,"<p>Sí, los has debido de tener… Todos los seres humanos tenemos estos pensamientos erróneos, es normal. La cuestión aquí está en qué es lo que hacemos con ellos; tenemos dos opciones:</p>
 <ol type='a'> 
@@ -94,7 +93,7 @@ INSERT IGNORE INTO sub_activity(id,parent,text,clave,together,resources) VALUES
 <p>¿Cómo me doy cuenta de si estoy teniendo pensamientos erróneos?
 Es importante escucharte, pararte a analizar si lo que piensas es o no 100% real. Pero cuidado, porque nuestro cerebro es muy bueno en hacernos creer que sí y tendremos que estar muy atentos. </p>
 Para saberlo y ayudarte a salir de ello, respóndete a las siguientes preguntas: ","si estás sintiéndote mal ¡PARA! y analiza si estás teniendo pensamientos erróneos o esas emociones son ajustadas a lo que está pasando en realidad.",0,null),
-(24,5,"Estas preguntas están diseñadas para flexibilizar tu pensamiento, para que no te quedes estancado en el error si no que puedas ver otras interpretaciones alternativas y más funcionales. No se trata de auto-engañarse, sino de flexibilizar y ajustarse a la realidad, la cual, a veces, también será negativa y será importante aceptar las emociones que nos suscita.\n¿LO VEMOS EN EL SIGUIENTE NIVEL?",null,1,17),
+(24,5,"Estas preguntas están diseñadas para flexibilizar tu pensamiento, para que no te quedes estancado en el error si no que puedas ver otras interpretaciones alternativas y más funcionales. No se trata de auto-engañarse, sino de flexibilizar y ajustarse a la realidad, la cual, a veces, también será negativa y será importante aceptar las emociones que nos suscita.\n¿LO VEMOS EN EL SIGUIENTE NIVEL?",null,0,17),
 (25,6,"Después de haber aprendido a trabajar nuestra activación y entender nuestros pensamientos, ahora nos toca aprender a escucharnos. ¿Qué sabes sobre EMOCIONES?\nNOTA: no olvides seguir practicando La rutina estable, El nivel de activación y Pensando en cómo pienso.",null,0,18),
 (26,6,"Todos tenemos emociones, aunque no todas las emociones son igual de agradables: hay emociones que nos gusta más que otras. Por ejemplo, suele ser común que prefiramos sentir alegría, calma o ilusión antes que tristeza, miedo o culpa. Sería tentador pensar en quedarnos solo con las emociones más agradables y “deshacernos” de las emociones desagradables, hacer como si no existieran. Pero ¿realmente sería útil?  Desgraciadamente, no tendría muy buenos resultados. \nImagina por un momento cómo sería tu vida sin sentir emociones: ¿Cómo sabrías qué te gusta y por dónde debes seguir? ¿Cómo sabrías de qué debes alejarte o qué no te conviene? ¿Cómo sabrías si estás en peligro?\nTODAS las emociones son buenas y sirven para algo, son como una brújula que nos indica qué debemos hacer y hacia dónde ir.",null,0,19),
 (27,6,"Existen muchas emociones y cada una de ellas nos da información importante para resolver las situaciones de nuestro día a día. Podemos clasificar las emociones en primarias y secundarias. De las primarias surgen el resto de emociones secundarias (que son muchas). Veamos brevemente cual es la función “natural” de las emociones primarias:",null,0,20),
@@ -103,13 +102,13 @@ Para saberlo y ayudarte a salir de ello, respóndete a las siguientes preguntas:
 (30,7,"DIFERENTES TIPOS DE ESTRATEGIAS\nEl ejemplo anterior nos enseña diferentes estrategias. Existen muchos tipos de estrategias, nosotros vamos a centrarnos en algunas y vamos a clasificarlas en dos grandes categorías:",null,0,22),
 (31,7,"ESTRATEGIAS DE EVITACIÓN / SUPERISÓN / HUÍDA: \nSon todas aquellas estrategias que hacen que no sienta o no me enfrente a la emoción. Por ejemplo:",null,0,23),
 (32,7,"ACEPTACIÓN\nMuchas de las estrategias mencionadas suelen ocurrir debido a que no aceptamos la emoción que estamos sintiendo. Nuestra sociedad no ve con buenos ojos sentir emociones. No está permitido estar triste: ¿a cuantos de nosotros no nos han dicho alguna vez “venga, no llores, tienes que seguir”? Esto nos lleva a intentar controlar lo que sentimos: nos obligamos a no sentir la tristeza o la rabia. Pero, ERROR, porque eso nunca funciona. Hagamos un pequeño ejercicio para entenderlo:\nQuiero que NO pienses, ni se te ocurra pensar, ni por un momento, en una MARIPOSA ROSA.",null,0,null),
-(33,7,"¿Qué ha ocurrido?",null,1,24),
+(33,7,"¿Qué ha ocurrido?",null,0,24),
 (34,7,"Cuando hacemos este ejercicio es inevitable que la mariposa venga a nuestra cabeza. Lo mismo ocurre con las emociones. Cuanto más intentemos quitarlas más aparecerán. Debemos permitirnos SENTIR las emociones, darles su espacio para poder gestionarlas de manera correcta.
 <ol>
     <li style='margin-left: 10px;'>Aceptarlas.</li>
     <li style='margin-left: 10px;'>Buscar una estrategia que me ayude a gestionar esa situación</li>
 </ol>
-",null,0,null),
+",null,1,null),
 (35,8,"Si repasamos nuestro entrenamiento, puedes observar que hemos completado el siguiente esquema:",null,1,25),
 (36,8,"¿Lo reconoces?",null,0,null),
 (37,8,"",null,1,26),
@@ -128,39 +127,39 @@ Antes de seguir, ¿vemos tus avances respecto al principio? Completo el test en 
 RECUERDA: tienes disponibles todos los niveles para consultarlo y poner seguir trabajando y profundizando. ",null,0,null);
 
 --ACTIVITY
-INSERT IGNORE INTO activity_user_question(id,answers,question,parent,type,unique_response,resources) VALUES
-(1,"Sé que no puedo seguir con este nivel de estrés;Creo que hay cosas más importantes que el consumismo de la vida diaria;No puedo continuar explotando cada vez que algo va mal;Seguir pagando mi malestar con los demás no me lleva a ningún lado;Mi cuerpo está sufriendo las consecuencias de mi ritmo de vida;Necesito aprender a manejar todo este estrés de otra manera;Otros","Marca aquellas casillas que te impulsan a estar aquí:",2,"checkbox",0,null),
-(2,"Desayuno;Comida de media mañana;Almuerzo;Merienda;Cena;Picoteo","¿Qué comidas has hecho hoy?",4,"checkbox",0,null),
-(3,"Menos de 0,5 L;Entre 0,5-1 L;Entre 1-1,5 L;Entre 1,5–2 L;Más de 2 L","¿Qué cantidad de agua has bebido hoy?",5,"checkbox",1,null),
-(4,"Zumos;Refrescos;Bebidas energéticas / estimulantes;Bebidas alcohólicas","¿Has consumido otro tipo de bebidas?",6,"checkbox",0,null),
-(5,"Menos de 3 h;3 - 4 h;5 - 6 h;7 - 9 h;Más de 9 h","¿Cuántas horas has dormido hoy?",7,"checkbox",1,null),
-(6,"Pintar;Cantar;Ir de compras;Pasear;Hacer deporte;Meditar;Otros","¿Has realizado algún tipo de “actividad agradable”?",8,"checkbox",0,null),
-(7,"Quedar a comer o tomar algo;Cita con mi pareja;Dia de playa con amigos;Deporte o actividad colaborativa?;Visitar a familiares;Otros","¿Has realizado algún tipo de “actividad social”?",9,"checkbox",0,null),
-(8,null,"¿Cómo te has sentido? Escribe algunas emociones que lo reflejen",9,"question",0,null),
-(9,null,"¿Qué es importante para mí?",13,"question",0,null),
-(10,null,"¿Qué me haría estar mejor?",13,"question",0,null),
-(11,null,"¿Por qué quiero lograr esto?",13,"question",0,null),
-(12,null,"¿Qué pasa ahora que no lo tengo?",13,"question",0,null),
-(13,null,"¿Qué pasará después de lograrlo?",13,"question",0,null),
-(14,null,"¿Tienes ya algo en mente?",13,"question",0,null),
-(15,null,"Anota aquí qué necesitas modificar:",14,"question",0,12),
-(16,null,"¿NOS PONERLOS EN MARCHA? Para mañana es tarde… comienza ahora mismo con el primer escalón. No tengas prisa pero, cuando lo hayas conseguido, pasa al siguiente. ¡ÁNIMO!",15,"steps",0,13),
-(17,"Facilidad para respirar (0-10);Concentración durante el ejercicio (0-10);Relajación al acabar (0-10)","Para completar este entrenamiento hazlo una vez al día durante 3 días. Además, completa la sieguente tabla:" ,18,"number",0,null),
-(18,null,"Mi pensamiento erróneo es",22,"question",0,null),
-(19,null,"¿Sé con seguridad que pasará y/o que es cierto?",22,"question",0,null),
-(20,null,"¿Qué pruebas le podría presentar a un juez a favor Y en contra de lo que estoy pensando?",22,"question",0,null),
-(21,null,"¿Podría haber otra explicación alternativa? Entonces, ¿me puedo quedar, al 100% con lo que estoy pensando?",22,"question",0,null),
-(22,null,"¿Cuál es la probabilidad, de 0 a 100, de que lo que estoy pensando sea cierto?",22,"question",0,null),
-(23,null,"¿Mi pensamiento viene impulsado por la emoción que estoy teniendo?",22,"question",0,null),
-(24,null,"¿Si lo que estoy pensando fuese cierto, podría afrontarlo? ¿Cómo lo manejaría? ¿Podría vivir con ello? ",22,"question",0,null),
-(25,null,"¿Cómo te sientes? Para “romper el hielo” con las emociones vamos a utilizar un termómetro emocional.\nEste “termómetro” puede ayudarnos a identificar nuestras emociones en función de lo agradable/desagradable que nos parezca y la energía que requiere. Trata de situarse en uno de los cuadrantes en función de cómo te están sintiendo en ese mismo momento. Pulsa sobre uno de los cuadrados en función de donde te sientas.",27,"termo",0,null),
-(26,null,"SITUACIÓN 1",33,"question",0,null),
-(27,null,"EMOCIÓN 1",33,"question",0,null),
-(28,null,"ESTRATEGIA 1",33,"question",0,null),
-(29,null,"RETO: ESTRATEGIA ALTERNATIVA 1",33,"question",0,null),
-(30,null,"SITUACIÓN 2",33,"question",0,null),
-(31,null,"EMOCIÓN 2",33,"question",0,null),
-(32,null,"ESTRATEGIA 2",33,"question",0,null),
-(33,null,"RETO: ESTRATEGIA ALTERNATIVA 2",33,"question",0,null);
+INSERT IGNORE INTO activity_user_question(id,answers,question,parent,type,unique_response,resources,title) VALUES
+(1,"Sé que no puedo seguir con este nivel de estrés;Creo que hay cosas más importantes que el consumismo de la vida diaria;No puedo continuar explotando cada vez que algo va mal;Seguir pagando mi malestar con los demás no me lleva a ningún lado;Mi cuerpo está sufriendo las consecuencias de mi ritmo de vida;Necesito aprender a manejar todo este estrés de otra manera;Otros","Marca aquellas casillas que te impulsan a estar aquí:",2,"checkbox",0,null,null),
+(2,"Desayuno;Comida de media mañana;Almuerzo;Merienda;Cena;Picoteo","¿Qué comidas has hecho hoy?",4,"checkbox",0,null,null),
+(3,"Menos de 0,5 L;Entre 0,5-1 L;Entre 1-1,5 L;Entre 1,5–2 L;Más de 2 L","¿Qué cantidad de agua has bebido hoy?",5,"checkbox",1,null,null),
+(4,"Zumos;Refrescos;Bebidas energéticas / estimulantes;Bebidas alcohólicas","¿Has consumido otro tipo de bebidas?",6,"checkbox",0,null,null),
+(5,"Menos de 3 h;3 - 4 h;5 - 6 h;7 - 9 h;Más de 9 h","¿Cuántas horas has dormido hoy?",7,"checkbox",1,null,null),
+(6,"Pintar;Cantar;Ir de compras;Pasear;Hacer deporte;Meditar;Otros","¿Has realizado algún tipo de “actividad agradable”?",8,"checkbox",0,null,null),
+(7,"Quedar a comer o tomar algo;Cita con mi pareja;Dia de playa con amigos;Deporte o actividad colaborativa?;Visitar a familiares;Otros","¿Has realizado algún tipo de “actividad social”?",9,"checkbox",0,null,null),
+(8,null,"¿Cómo te has sentido? Escribe algunas emociones que lo reflejen",9,"question",0,null,null),
+(9,null,"¿Qué es importante para mí?",13,"question",0,null,null),
+(10,null,"¿Qué me haría estar mejor?",13,"question",0,null,null),
+(11,null,"¿Por qué quiero lograr esto?",13,"question",0,null,null),
+(12,null,"¿Qué pasa ahora que no lo tengo?",13,"question",0,null,null),
+(13,null,"¿Qué pasará después de lograrlo?",13,"question",0,null,null),
+(14,null,"¿Tienes ya algo en mente?",13,"question",0,null,null),
+(15,null,"Anota aquí qué necesitas modificar:",14,"question",0,12,null),
+(16,null,"¿NOS PONERLOS EN MARCHA? Para mañana es tarde… comienza ahora mismo con el primer escalón. No tengas prisa pero, cuando lo hayas conseguido, pasa al siguiente. ¡ÁNIMO!",15,"steps",0,13,null),
+(17,"Facilidad para respirar (0-10);Concentración durante el ejercicio (0-10);Relajación al acabar (0-10)","Para completar este entrenamiento hazlo una vez al día durante 3 días. Además, completa la sieguente tabla:" ,18,"number",0,null,null),
+(18,null,"Mi pensamiento erróneo es",23,"question",0,null,null),
+(19,null,"¿Sé con seguridad que pasará y/o que es cierto?",23,"question",0,null,null),
+(20,null,"¿Qué pruebas le podría presentar a un juez a favor Y en contra de lo que estoy pensando?",23,"question",0,null,null),
+(21,null,"¿Podría haber otra explicación alternativa? Entonces, ¿me puedo quedar, al 100% con lo que estoy pensando?",23,"question",0,null,null),
+(22,null,"¿Cuál es la probabilidad, de 0 a 100, de que lo que estoy pensando sea cierto?",23,"question",0,null,null),
+(23,null,"¿Mi pensamiento viene impulsado por la emoción que estoy teniendo?",23,"question",0,null,null),
+(24,null,"¿Si lo que estoy pensando fuese cierto, podría afrontarlo? ¿Cómo lo manejaría? ¿Podría vivir con ello? ",23,"question",0,null,null),
+(25,null,"¿Cómo te sientes? Para “romper el hielo” con las emociones vamos a utilizar un termómetro emocional.\nEste “termómetro” puede ayudarnos a identificar nuestras emociones en función de lo agradable/desagradable que nos parezca y la energía que requiere. Trata de situarse en uno de los cuadrantes en función de cómo te están sintiendo en ese mismo momento. Pulsa sobre uno de los cuadrados en función de donde te sientas.",27,"termo",0,null,null),
+(26,null,"SITUACIÓN 1",33,"question",0,null,"Y tú ¿Cómo gestionas tus emociones? ¿Qué estrategias utilizas? ¿Aceptas tus emociones? Completa esta tabla durante 2 días. Debes buscar al menos 2 situaciones al día que te generen algún tipo de emoción: identifica la emoción y observa qué estrategia utilizas. Además, una vez que hayas hecho esto, te retamos a que busques una estrategia alternativa que sea más útil."),
+(27,null,"EMOCIÓN 1",33,"question",0,null,null),
+(28,null,"ESTRATEGIA 1",33,"question",0,null,null),
+(29,null,"RETO: ESTRATEGIA ALTERNATIVA 1",33,"question",0,null,null),
+(30,null,"SITUACIÓN 2",33,"question",0,null,null),
+(31,null,"EMOCIÓN 2",33,"question",0,null,null),
+(32,null,"ESTRATEGIA 2",33,"question",0,null,null),
+(33,null,"RETO: ESTRATEGIA ALTERNATIVA 2",33,"question",0,null,null);
 
 

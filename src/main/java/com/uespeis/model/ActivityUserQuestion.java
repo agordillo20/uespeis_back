@@ -15,6 +15,7 @@ public class ActivityUserQuestion {
 	private Integer id;
     @Column(columnDefinition = "TEXT")
     private String answers;
+    @Column(columnDefinition = "TEXT")
     private String question;
     private String type;
     private boolean uniqueResponse;
@@ -25,4 +26,6 @@ public class ActivityUserQuestion {
     @ManyToOne
     @JoinColumn(name = "resources")
     private Resources resources;
+    @Column(columnDefinition = "TEXT")
+    private String title;
 }

@@ -51,14 +51,18 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Integer> register(@RequestBody String msg) {
+    public ResponseEntity<Map<String,Object>> register(@RequestBody String msg) {
+        var response = new HashMap<String,Object>();
         Map<String, String> transformToMap = RequestReader.transformToMap(msg);
         var email = transformToMap.get("email");
         var pwd = transformToMap.get("password");
         User u = User.builder().email(email).locked(false).rol(EnumTypeForUse.rol.DEFAULT.name()).password(Codifiquer.encode(pwd)).build();
         u = service.saveUser(u);
+        String jwt = service.auth(email, pwd);
+        response.put("id", u.getId());
+        response.put("jwt", jwt);
         serviceForm.save(Form.builder().user(u).loocked(false).build());
-        return ResponseEntity.ok().body(u.getId());
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping("/checkJWT")//revisar

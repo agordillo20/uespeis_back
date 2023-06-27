@@ -88,7 +88,7 @@
 	<distributionManagement>
 		<repository>
 			<id>uespeis-repository</id>
-			<url>root@159.203.150.21/home/ftpuser</url>
+			<url>root@159.203.150.21:/home/ftpuser</url>
 		</repository>
 	</distributionManagement>
 	

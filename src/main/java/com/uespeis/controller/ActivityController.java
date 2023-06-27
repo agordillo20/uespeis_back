@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.uespeis.model.Activity;
 import com.uespeis.model.ActivityParent;
 import com.uespeis.model.ActivityUserQuestion;
@@ -120,22 +122,20 @@ public class ActivityController {
 
     @PostMapping("/getActualActivity/{id}")
     public ResponseEntity<String> getActualActivityForUserV2(@PathVariable("id") Integer id){
-        List<ActivityParent> allActivities = apService.getAll();
         List<ActivityUserRealizated> findByUserId = aurService.findByUserId(id);
         if(!findByUserId.isEmpty()){
             ActivityUserRealizated last = findByUserId.get(findByUserId.size()-1);
-            long totalRequiered = last.getParent().getParent().getActivities().stream().collect(Collectors.summarizingInt(a->a.getTotalForComplete())).getSum();
+            long totalRequiered = last.getParent().getTotalForComplete();
             long time = getMinusTime(last);
-            int lastId = last.getParent().getParent().getId();
-            Integer totalComplete = aurService.findByUserIdAndParentActivity(id,last.getParent().getParent().getId()).size();
+            int lastId = last.getParent().getId();
+            Integer totalComplete = aurService.findByUserIdAndParent(id,last.getParent().getId()).size();
             if(time>=oneDay){
                 return ResponseEntity.ok().body(totalComplete<totalRequiered?String.valueOf(lastId):String.valueOf(lastId+1));
             }else{
                 return ResponseEntity.ok().body("tiempo restante - "+(oneDay-time)+"-"+(totalComplete<totalRequiered?String.valueOf(lastId):String.valueOf(lastId+1)));
             }
-
         }else{
-            return ResponseEntity.ok().body(String.valueOf(allActivities.get(0).getId()));
+            return ResponseEntity.ok().body(String.valueOf(apService.getAll().get(0).getActivities().get(0).getId()));
         }
     }
 
@@ -152,9 +152,9 @@ public class ActivityController {
     @PostMapping("/getAllSubActivitiesFromParent")
     public ResponseEntity<List<SubActivity>> getAllSubActivitiesFromParent(@RequestBody String mensaje){
         var input = RequestReader.transformToMap(mensaje);
-        Integer idParentActivity = Integer.valueOf(input.get("parent"));
-        Integer idUser = Integer.valueOf(input.get("user"));
-        var realizated = aurService.findByUserIdAndParentActivity(idUser, idParentActivity);
+        Integer idActivity = Integer.valueOf(input.get("activity"));
+        /*Integer idUser = Integer.valueOf(input.get("user"));
+        var realizated = aurService.findByUserIdAndParent(idUser, idParentActivity);
         AtomicInteger idActivity = new AtomicInteger();
         if(realizated.isEmpty()){
             idActivity.set(saService.getMinActivityFromActivityParent(idParentActivity));
@@ -168,8 +168,8 @@ public class ActivityController {
             if(idActivity.get()==0){
                 idActivity.set(realizated.get(realizated.size()-1).getParent().getId()+1);
             }
-        }
-        return ResponseEntity.ok().body(saService.getAllSubActivitiesFromActivity(idActivity.get()));
+        }*/
+        return ResponseEntity.ok().body(saService.getAllSubActivitiesFromActivity(idActivity));
     }
 
     @PostMapping("/complete")
@@ -213,8 +213,8 @@ public class ActivityController {
         }
     }
     @PostMapping("/getAll")
-    public ResponseEntity<List<ActivityParent>> getAll(){
-        return ResponseEntity.ok().body(apService.getAll());
+    public ResponseEntity<List<Activity>> getAll(){
+        return ResponseEntity.ok().body(aService.getAll());
     }
 
     @PostMapping("/getQuestionsResponsesForChart")
